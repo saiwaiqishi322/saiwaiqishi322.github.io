@@ -1,237 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-
-  
-  <title>学习笔记（13）分布式锁 | Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="分布式锁相关概念">
-<meta property="og:type" content="article">
-<meta property="og:title" content="学习笔记（13）分布式锁">
-<meta property="og:url" content="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8813%EF%BC%89%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="分布式锁相关概念">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-12-05T01:47:24.000Z">
-<meta property="article:modified_time" content="2020-12-05T02:04:17.509Z">
-<meta property="article:author" content="John Doe">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-<meta name="generator" content="Hexo 5.2.0"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-学习笔记（13）分布式锁" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8813%EF%BC%89%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="article-date">
-  <time datetime="2020-12-05T01:47:24.000Z" itemprop="datePublished">2020-12-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      学习笔记（13）分布式锁
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>分布式锁相关概念</p>
-<a id="more"></a>
-
-<p>分布式锁</p>
-<p>以前的锁：进程内锁<br>进程间锁需要使用分布式锁<br>RPC解决进程间通信问题</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">StringRedisTemplate redisTemplate</span><br><span class="line">	</span><br><span class="line">&#x2F;&#x2F;public Object obj &#x3D; new Object();</span><br><span class="line">public void incr()&#123;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;这个锁大家都用一个。</span><br><span class="line">        &#x2F;&#x2F;this当前对象。当前service对象。spring的组件是单例的。this一个。</span><br><span class="line">        &#x2F;&#x2F;this相同，锁相同，锁ok</span><br><span class="line">        &#x2F;&#x2F;RedisIncrService对象一个。自动注入；StringRedisTemplate，redisTemplate也只能注入唯一一个。</span><br><span class="line">        &#x2F;&#x2F;RedisIncrService对象创建的时候赋值，RedisIncrService一个   private Object obj &#x3D; new Object();</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;1）、synchronized(this)：能</span><br><span class="line">        &#x2F;&#x2F;2）、synchronized (redisTemplate)：能</span><br><span class="line">        &#x2F;&#x2F;3）、synchronized (new Object())：锁不住</span><br><span class="line">        &#x2F;&#x2F;4）、synchronized (obj)：锁得住？锁得住 &#x2F;RedisIncrService对象创建的时候赋值，RedisIncrService一个   private Object obj &#x3D; new Object();System.out.println(obj.hashcode()),hashcode都一样</span><br><span class="line">        &#x2F;&#x2F;5）、synchronized (obj())；锁的住</span><br><span class="line">        &#x2F;&#x2F;6）、synchronized (RedisIncrService.class)；锁得住, 万物皆对象，从头到尾传的是RedisIncrService这个类型，JVM虚拟机里一个类型只有一个在专门存类的元数据区域。</span><br><span class="line"></span><br><span class="line">	synchronized (this)&#123;</span><br><span class="line">	ValueOperations&lt;String, String&gt; stringStringValueOperations &#x3D; redisTemplate.opsForValue();</span><br><span class="line">	String num &#x3D; stringStringValueOperations.get(&quot;num&quot;);</span><br><span class="line">	if(num!&#x3D;null)&#123;</span><br><span class="line">		Integer i &#x3D; Integer.parseInt(num);                i &#x3D; i+1;</span><br><span class="line">	   stringStringValueOperations.set(&quot;num&quot;,i.toString());</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;5)</span><br><span class="line">    public Object obj() &#123;</span><br><span class="line">       </span><br><span class="line">        return obj;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"> &#x2F;&#x2F;肯定锁不住</span><br><span class="line">    public Object obj() &#123;</span><br><span class="line">        Object o &#x3D; new Object();</span><br><span class="line">        BeanUtils.copyProperties(obj, o);</span><br><span class="line">        return o;</span><br><span class="line">    &#125;</span><br><span class="line">public class RedisAutoConfiguration &#123;</span><br><span class="line">    public RedisAutoConfiguration() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    @ConditionalOnMissingBean(</span><br><span class="line">        name &#x3D; &#123;&quot;redisTemplate&quot;&#125;</span><br><span class="line">    )</span><br><span class="line">    public RedisTemplate&lt;Object, Object&gt; redisTemplate(RedisConnectionFactory redisConnectionFactory) throws UnknownHostException &#123;</span><br><span class="line">        RedisTemplate&lt;Object, Object&gt; template &#x3D; new RedisTemplate();</span><br><span class="line">        template.setConnectionFactory(redisConnectionFactory);</span><br><span class="line">        return template;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    @ConditionalOnMissingBean</span><br><span class="line">    public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory) throws UnknownHostException &#123;</span><br><span class="line">        StringRedisTemplate template &#x3D; new StringRedisTemplate();</span><br><span class="line">        template.setConnectionFactory(redisConnectionFactory);</span><br><span class="line">        return template;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;StringRedisTemplate 容器放入一个，是单例</span><br><span class="line">    &#x2F;&#x2F;ReentrantLock lock &#x3D; new ReentrantLock();</span><br><span class="line">    public void incr() &#123;</span><br><span class="line"></span><br><span class="line">        &#x2F;**</span><br><span class="line">         *  ReentrantLock lock &#x3D; new ReentrantLock();应该在成员变量位置才锁得住，&#x2F;&#x2F;也即放到方法外，自始至终只有一个锁</span><br><span class="line">         *&#x2F;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;锁得住？</span><br><span class="line">        lock.lock();</span><br><span class="line">        ValueOperations&lt;String, String&gt; stringStringValueOperations &#x3D; redisTemplate.opsForValue();</span><br><span class="line">        String num &#x3D; stringStringValueOperations.get(&quot;num&quot;);</span><br><span class="line">        if (num !&#x3D; null) &#123;</span><br><span class="line">            Integer i &#x3D; Integer.parseInt(num);</span><br><span class="line">            i &#x3D; i + 1;</span><br><span class="line">            stringStringValueOperations.set(&quot;num&quot;, i.toString());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        lock.unlock();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>以上 进程内肯定好使，单机跑。分布式肯定 不好使</p>
-<p>分布式锁的原理，为了获取同一把锁，大家都去redis里拿锁</p>
-<p>在redis里设置lock</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">        *</span><br><span class="line">        * setnx-&gt;set if not exist：原子操作。判断带保存。</span><br><span class="line">        *</span><br><span class="line">        *1）、代码第一阶段；</span><br><span class="line">        * public void hello()&#123;</span><br><span class="line">        *</span><br><span class="line">        * &#x2F;&#x2F;获取和设置值必须是原子的9</span><br><span class="line">        *   String lock &#x3D;  getFromRedis(&quot;lock&quot;);&#x2F;&#x2F;get(&quot;lock&quot;)</span><br><span class="line">        *   if(lock &#x3D;&#x3D; null)&#123;</span><br><span class="line">        *       setRedisKey(&quot;lock&quot;,&quot;1&quot;);</span><br><span class="line">        *       &#x2F;&#x2F;执行业务</span><br><span class="line">        *       delRedisKey(&quot;lock&quot;)</span><br><span class="line">        *       return ;</span><br><span class="line">        *   &#125;else&#123;</span><br><span class="line">        *      hello();&#x2F;&#x2F;自旋</span><br><span class="line">        *   &#125;</span><br><span class="line">        * &#125;</span><br><span class="line">        * &#x2F;&#x2F;问题：加锁的原子性</span><br><span class="line">        *</span><br><span class="line">        * 2、代码第二阶段</span><br><span class="line">        * public void hello()&#123;</span><br><span class="line">        *     &#x2F;&#x2F;1、获取到锁</span><br><span class="line">        *     Integer lock &#x3D; setnx(&quot;lock&#39;,&quot;111&quot;); &#x2F;&#x2F;0代表没有保存数据，说明已经有人占了。1代表占可坑成功</span><br><span class="line">        *     if(lock!&#x3D;0)&#123;</span><br><span class="line">        *         &#x2F;&#x2F;执行业务逻辑</span><br><span class="line">        *         &#x2F;&#x2F;释放锁、删除锁</span><br><span class="line">        *         del(&quot;lock&quot;)</span><br><span class="line">        *     &#125;else&#123;</span><br><span class="line">        *         &#x2F;&#x2F;等待重试</span><br><span class="line">        *         hello();</span><br><span class="line">        *     &#125;</span><br><span class="line">        * &#125;</span><br><span class="line">        * &#x2F;&#x2F;问题：如果由于各种问题（未捕获的异常、断电等）导致锁没释放。其他人永远获取不到锁。</span><br><span class="line">        * &#x2F;&#x2F;解决：加个过期时间。</span><br><span class="line">        *</span><br><span class="line">        * 3、代码第三阶段</span><br><span class="line">        * public void hello()&#123;</span><br><span class="line">        *    &#x2F;&#x2F;超时和加锁必须原子</span><br><span class="line">        *     Integer lock &#x3D; setnx(&quot;lock&#39;,&quot;111&quot;);</span><br><span class="line">        *     if(lock!&#x3D;null)&#123;</span><br><span class="line">        *         expire(&quot;lock&quot;,10s);</span><br><span class="line">        *         &#x2F;&#x2F;执行业务逻辑</span><br><span class="line">        *         &#x2F;&#x2F;释放锁</span><br><span class="line">        *         del(&quot;lock&#39;)</span><br><span class="line">        *     &#125;else&#123;</span><br><span class="line">        *         hello();</span><br><span class="line">        *     &#125;</span><br><span class="line">        *</span><br><span class="line">        * &#125;</span><br><span class="line">        * 问题：刚拿到锁，机器炸了，没来得及设置超时。</span><br><span class="line">        * 解决：加锁和加超时也必须是原子的。</span><br><span class="line">        *</span><br><span class="line">        *</span><br><span class="line">        * 4、代码第四阶段：</span><br><span class="line">        * public void hello()&#123;</span><br><span class="line">        *     String result &#x3D; setnxex(&quot;lock&quot;,&quot;111&quot;,10s);</span><br><span class="line">        *     if(result&#x3D;&#x3D;&quot;ok&quot;)&#123;</span><br><span class="line">        *         &#x2F;&#x2F;加锁成功</span><br><span class="line">        *         &#x2F;&#x2F;执行业务逻辑</span><br><span class="line">        *         del(&quot;lock&quot;)</span><br><span class="line">        *     &#125;else&#123;</span><br><span class="line">        *         hello();</span><br><span class="line">        *     &#125;</span><br><span class="line">        * &#125;</span><br><span class="line">        * 问题：如果业务逻辑超时，导致锁自动删除，业务执行完又删除一遍。至少多个人都获取到了锁。</span><br><span class="line">        *</span><br><span class="line">        * 5、代码第五阶段。</span><br><span class="line">        * public void hello()&#123;</span><br><span class="line">        *    String token &#x3D; UUID;</span><br><span class="line">        *    String result &#x3D; setnxex(&quot;lock&quot;,token,10s);</span><br><span class="line">        *    if(result &#x3D;&#x3D; &quot;ok&quot;)&#123;</span><br><span class="line">        *        &#x2F;&#x2F;执行业务</span><br><span class="line">        *</span><br><span class="line">        *        &#x2F;&#x2F;删锁，保证删除自己的锁</span><br><span class="line">        *        if(get(&quot;lock&quot;)&#x3D;&#x3D;token)&#123;</span><br><span class="line">        *            del(&quot;lock&quot;)</span><br><span class="line">        *        &#125;</span><br><span class="line">        *    &#125;else&#123;</span><br><span class="line">        *        hello();</span><br><span class="line">        *    &#125;</span><br><span class="line">        * &#125;</span><br><span class="line">        * 问题？：我们获取锁的时候，锁的值正在给我们返回。锁过期。redis删除了锁。</span><br><span class="line">        * 但是我们拿到了值，而且对比成功（此时此刻正好有人又获取）。我们还删除了锁。至少两个线程又进入同一个代码。</span><br><span class="line">        *  原因：？删锁不是原子。d</span><br><span class="line">        *      lua脚本。</span><br><span class="line">        *</span><br><span class="line">        *  解决：</span><br><span class="line">        *  String script &#x3D;</span><br><span class="line">        *      &quot;if redis.call(&#39;get&#39;, KEYS[1]) &#x3D;&#x3D; ARGV[1] then</span><br><span class="line">        *              return redis.call(&#39;del&#39;, KEYS[1])</span><br><span class="line">        *       else</span><br><span class="line">        *              return 0</span><br><span class="line">        *       end&quot;;</span><br><span class="line">        *</span><br><span class="line">        * jedis.eval(script, Collections.singletonList(key), Collections.singletonList(token));</span><br><span class="line">        *</span><br><span class="line">        *   lua脚本进行删除。</span><br><span class="line">        *</span><br><span class="line">        *</span><br><span class="line">        * 1）、分布式锁的核心（保证原子性）</span><br><span class="line">        *      1）、加锁。占坑一定要是原子的。（判断如果没有，就给redis中保存值）</span><br><span class="line">        *      2）、锁要自动超时。</span><br><span class="line">        *      3）、解锁也要原子。</span><br><span class="line">        *</span><br><span class="line">        *</span><br><span class="line">        *  最终的分布式锁的代码：大家都去redis中占同一个坑。</span><br><span class="line">        *</span><br><span class="line">        *</span><br><span class="line">        *</span><br><span class="line">        *  @Lock</span><br><span class="line">        *  public void hello()&#123;</span><br><span class="line">        *      String token &#x3D; uuid;</span><br><span class="line">        *      String lock &#x3D; redis.setnxex(&quot;lock&quot;,token,10s);</span><br><span class="line">        *      if(lock&#x3D;&#x3D;&quot;ok&quot;)&#123;</span><br><span class="line">        *          &#x2F;&#x2F;执行业务逻辑</span><br><span class="line">        *          &#x2F;&#x2F;脚本删除锁</span><br><span class="line">        *      &#125;else&#123;</span><br><span class="line">        *          hello();&#x2F;&#x2F;自旋。</span><br><span class="line">        *      &#125;</span><br><span class="line">        *  &#125;</span><br><span class="line">        *</span><br></pre></td></tr></table></figure>
-
-<p>redis底层单线程，只要是一条完整命令，就是原子性的，这是redis快的原因。多线程由于线程切换不一定快。</p>
-<p>发一个删锁命令，连删锁，对比一起执行。但是redis没有此命令，所以使用redis支持的脚本语言。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"> String script &#x3D;</span><br><span class="line">         *      &quot;if redis.call(&#39;get&#39;, KEYS[1]) &#x3D;&#x3D; ARGV[1] then</span><br><span class="line">         *              return redis.call(&#39;del&#39;, KEYS[1])</span><br><span class="line">         *       else</span><br><span class="line">         *              return 0</span><br><span class="line">         *       end&quot;;</span><br><span class="line">         *</span><br><span class="line">         * jedis.eval(script, Collections.singletonList(key), Collections.singletonList(token));</span><br><span class="line">         &#x2F;&#x2F;如果redis要getlock的值，而且值等于传过来的值，则redis调用删锁命令，否则什么也不执行。</span><br><span class="line">         &#x2F;&#x2F;redis是单线程的，所以以上是原子命令，只有该命令执行后，才可执行其它线程的命令</span><br><span class="line">@Bean</span><br><span class="line">@ConditionalOnMissingBean(&#123;RedisConnectionFactory.class&#125;)</span><br><span class="line">JedisConnectionFactory redisConnectionFactory ( ObjectProvider&lt;JedisClientConfigurationBuilderCustomizer&gt; builderCustomizers) throws UnknownHostException &#123;</span><br><span class="line">    return this.createJedisConnectionFactory(builderCustomizers);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;没有RedisConnectionFactory，才配置JedisConnectionFactory </span><br><span class="line">@Configuration(</span><br><span class="line">    proxyBeanMethods &#x3D; false</span><br><span class="line">)</span><br><span class="line">@ConditionalOnClass(&#123;RedisOperations.class&#125;)</span><br><span class="line">@EnableConfigurationProperties(&#123;RedisProperties.class&#125;)</span><br><span class="line">@Import(&#123;LettuceConnectionConfiguration.class, JedisConnectionConfiguration.class&#125;)</span><br><span class="line">public class RedisAutoConfiguration &#123;</span><br><span class="line">    public RedisAutoConfiguration() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    @ConditionalOnMissingBean(</span><br><span class="line">        name &#x3D; &#123;&quot;redisTemplate&quot;&#125;</span><br><span class="line">    )</span><br><span class="line">    public RedisTemplate&lt;Object, Object&gt; redisTemplate(RedisConnectionFactory redisConnectionFactory) throws UnknownHostException &#123;</span><br><span class="line">        RedisTemplate&lt;Object, Object&gt; template &#x3D; new RedisTemplate();</span><br><span class="line">        template.setConnectionFactory(redisConnectionFactory);</span><br><span class="line">        return template;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    @ConditionalOnMissingBean</span><br><span class="line">    public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory) throws UnknownHostException &#123;</span><br><span class="line">        StringRedisTemplate template &#x3D; new StringRedisTemplate();</span><br><span class="line">        template.setConnectionFactory(redisConnectionFactory);</span><br><span class="line">        return template;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;RedisConnectionFactory自动整进来</span><br><span class="line">&#x2F;**</span><br><span class="line">         * 1、锁的更多考虑</span><br><span class="line">         *   1）、自旋。</span><br><span class="line">         *      自旋次数。</span><br><span class="line">         *      自旋超时。</span><br><span class="line">         *   2）、锁设置</span><br><span class="line">         *      锁粒度；细；记录级别；</span><br><span class="line">         *          1）、各自服务各自锁</span><br><span class="line">         *          2）、分析好粒度，不要锁住无关数据。一种数据一种锁，一条数据一个锁。</span><br><span class="line">         *   3）、锁类型：</span><br><span class="line">         *</span><br><span class="line">         *</span><br><span class="line">         *</span><br><span class="line">         * 查询商品详情；进缓存--&gt;击穿，穿透，雪崩。</span><br><span class="line">         *</span><br><span class="line">         *   查商品</span><br><span class="line">         *   public Product productInfo(String productId)&#123;</span><br><span class="line">         *</span><br><span class="line">         *</span><br><span class="line">         *      Product cache &#x3D; jedis.get(productId);</span><br><span class="line">         *      if(cache!&#x3D;null)&#123;</span><br><span class="line">         *          return cache;</span><br><span class="line">         *      &#125;else&#123;</span><br><span class="line">         *          &#x2F;&#x2F;各自数据各自锁。</span><br><span class="line">         *          String lock &#x3D; jedis.set(&quot;lock-&quot;+productId, token, SetParams.setParams().ex(3).nx());</span><br><span class="line">         *          if(lock!&#x3D;null)&#123;</span><br><span class="line">         *             &#x2F;&#x2F;查数据库</span><br><span class="line">         *              Product product &#x3D; getFromDb();</span><br><span class="line">         *              jedis.set(productId,product);</span><br><span class="line">         *          &#125;else&#123;</span><br><span class="line">         *              return productInfo(productId);&#x2F;&#x2F;自旋。</span><br><span class="line">         *          &#125;</span><br><span class="line">         *      &#125;</span><br><span class="line">         *   &#125;</span><br><span class="line">         *</span><br><span class="line">         *   查询1号商品，2,3,4,5，6；</span><br><span class="line">         *   1号商品缓存没有，2号有，3号没有，4没有，5有。</span><br><span class="line">         *</span><br><span class="line">         *</span><br><span class="line">         *</span><br><span class="line">         *</span><br><span class="line">         *      jedis.set(&quot;lock&quot;, token, SetParams.setParams().ex(3).nx());</span><br><span class="line">         *      if()&#123;</span><br><span class="line">         *          &#x2F;&#x2F;拿到锁</span><br><span class="line">         *      &#125;</span><br><span class="line">         *</span><br><span class="line">         *</span><br><span class="line">         *</span><br><span class="line">         *&#x2F;</span><br></pre></td></tr></table></figure>
-
-<p>可重入锁，意义·：同样一个线程，在内部，外部，内内部获取锁，都是同一把锁，不会造成死锁。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public boolean lock() &#123;</span><br><span class="line">    RLock lock &#x3D; redisson.getLock(&quot;lock&quot;);</span><br><span class="line">    &#x2F;&#x2F;lock.lock();&#x2F;&#x2F;默认是阻塞的。</span><br><span class="line">    &#x2F;&#x2F;lock.tryLock()；是非阻塞的，尝试一下，拿不到就算了。</span><br><span class="line">    &#x2F;&#x2F;boolean res &#x3D; lock.tryLock(100, 10, TimeUnit.SECONDS);等待100s内只要能获取到锁，这个锁就10秒超时，</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     *</span><br><span class="line">     *&#x2F;</span><br><span class="line">    lock.lock();</span><br><span class="line">    System.out.println(&quot;第一次锁&quot;);</span><br><span class="line">    lock.lock();</span><br><span class="line">    System.out.println(&quot;第二次锁&quot;);</span><br><span class="line">    lock.lock();</span><br><span class="line">    System.out.println(&quot;第三次锁&quot;);</span><br><span class="line">    &#x2F;&#x2F;这个线程的任意期间都要获取这把锁，是直接使用的。说明这个锁是可重入锁。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    return  lock.tryLock();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;哪个线程加的锁一定要在这个线程解</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;加锁</span><br><span class="line">    &#x2F;&#x2F;业务</span><br><span class="line">    &#x2F;&#x2F;解锁</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+{% extends '_layout.swig' %}
+{% import '_macro/post.swig' as post_template %}
+{% import '_macro/sidebar.swig' as sidebar_template %}
 
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8813%EF%BC%89%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" data-id="ckib29ekg0003rou15gtv8f24" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8814%EF%BC%89%E7%BC%93%E5%AD%98/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          学习笔记（14）缓存
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8811%EF%BC%89%E5%95%86%E5%93%81%E4%B8%8A%E6%9E%B6%E4%B8%8EES%E6%A3%80%E7%B4%A2/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">学习笔记（11）商品上架与ES检索</div>
-    </a>
-  
-</nav>
+{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-  
-</article>
+{% block page_class %}page-post-detail{% endblock %}
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
 
-  
-    
+{% block content %}
 
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li></ul>
+  <div id="posts" class="posts-expand">
+    {{ post_template.render(page) }}
+
+    <div class="post-spread">
+      {% if theme.jiathis %}
+        {% include '_partials/share/jiathis.swig' %}
+      {% elseif theme.baidushare %}
+        {% include '_partials/share/baidushare.swig' %}
+      {% elseif theme.add_this_id %}
+        {% include '_partials/share/add-this.swig' %}
+      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
+        {% include '_partials/share/duoshuo_share.swig' %}
+      {% endif %}
     </div>
   </div>
 
+{% endblock %}
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8822%EF%BC%89%E8%AE%A2%E5%8D%95%E6%9C%8D%E5%8A%A1/">学习笔记（22）订单服务</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8821%EF%BC%89%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">学习笔记（21）消息队列</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8820%EF%BC%89%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">学习笔记（20）分布式事务</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8819%EF%BC%89%E8%B4%AD%E7%89%A9%E8%BD%A6/">学习笔记（19）购物车&#34;</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8818%EF%BC%89%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/">学习笔记（18）单点登录</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
+{% block sidebar %}
+  {{ sidebar_template.render(true) }}
+{% endblock %}
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-  
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-  </div>
-</body>
-</html>
+{% block script_extra %}
+  {% include '_scripts/pages/post-details.swig' %}
+{% endblock %}
