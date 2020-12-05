@@ -7,12 +7,12 @@
   
   <title>学习笔记（11）商品上架与ES检索 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="商品上架商品里有很多SKU：  每个SKU有自己的销售属性： 除此之外，每个商品有共用的商品属性：  检索出来的界面标题是SPU+SKU都有 查询商品的详情 SPU的信息拿来筛选，SKU的信息拿来售卖 1234SELECT pav.*,pa.&#96;name&#96; FROM &#96;pms_product_attribute_value&#96; pav 	LEFT JOIN &#96;p">
+  <meta name="description" content="项目的商品上架及其检索">
 <meta property="og:type" content="article">
 <meta property="og:title" content="学习笔记（11）商品上架与ES检索">
 <meta property="og:url" content="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8811%EF%BC%89%E5%95%86%E5%93%81%E4%B8%8A%E6%9E%B6%E4%B8%8EES%E6%A3%80%E7%B4%A2/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="商品上架商品里有很多SKU：  每个SKU有自己的销售属性： 除此之外，每个商品有共用的商品属性：  检索出来的界面标题是SPU+SKU都有 查询商品的详情 SPU的信息拿来筛选，SKU的信息拿来售卖 1234SELECT pav.*,pa.&#96;name&#96; FROM &#96;pms_product_attribute_value&#96; pav 	LEFT JOIN &#96;p">
+<meta property="og:description" content="项目的商品上架及其检索">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201202100639267.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201202100700865.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201202101323139.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201202101349249.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="article:published_time" content="2020-12-05T01:46:27.000Z">
-<meta property="article:modified_time" content="2020-12-05T01:46:45.566Z">
+<meta property="article:modified_time" content="2020-12-05T02:06:09.553Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201202100639267.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
@@ -102,7 +102,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="商品上架"><a href="#商品上架" class="headerlink" title="商品上架"></a>商品上架</h2><p>商品里有很多SKU：</p>
+        <p>项目的商品上架及其检索</p>
+<a id="more"></a>
+
+<h2 id="商品上架"><a href="#商品上架" class="headerlink" title="商品上架"></a>商品上架</h2><p>商品里有很多SKU：</p>
 <p><img src="https://img-blog.csdnimg.cn/20201202100639267.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <p>每个SKU有自己的销售属性：<br><img src="https://img-blog.csdnimg.cn/20201202100700865.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <p>除此之外，每个商品有共用的商品属性：</p>
@@ -161,7 +164,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8811%EF%BC%89%E5%95%86%E5%93%81%E4%B8%8A%E6%9E%B6%E4%B8%8EES%E6%A3%80%E7%B4%A2/" data-id="ckib1qb3a0002pcu1hk9yg5id" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8811%EF%BC%89%E5%95%86%E5%93%81%E4%B8%8A%E6%9E%B6%E4%B8%8EES%E6%A3%80%E7%B4%A2/" data-id="ckib26xh50002xgu1ecc723xe" class="article-share-link">Share</a>
       
       
     </footer>

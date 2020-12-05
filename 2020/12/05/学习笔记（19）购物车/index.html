@@ -7,12 +7,12 @@
   
   <title>学习笔记（19）购物车&#34; | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="购物车有两种情况：  在线购物车；  离线购物车； 离线购物车： 只要每次看购物车。都有一个user-key&#x3D;uuid；如果这个user-key丢了，购物车就没了。 如果我们要看购物车肯定会带上这个user-key的cookie；如果有就用自带的，没有就新建一个以后用这个。 登录以后离线的和在线的合并了，并且清空了离线购物车里面的数据。 京东怎么做购物车？  购物车有一个cookie对应的ke">
+  <meta name="description" content="购物车搭建">
 <meta property="og:type" content="article">
 <meta property="og:title" content="学习笔记（19）购物车&quot;">
 <meta property="og:url" content="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8819%EF%BC%89%E8%B4%AD%E7%89%A9%E8%BD%A6/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="购物车有两种情况：  在线购物车；  离线购物车； 离线购物车： 只要每次看购物车。都有一个user-key&#x3D;uuid；如果这个user-key丢了，购物车就没了。 如果我们要看购物车肯定会带上这个user-key的cookie；如果有就用自带的，没有就新建一个以后用这个。 登录以后离线的和在线的合并了，并且清空了离线购物车里面的数据。 京东怎么做购物车？  购物车有一个cookie对应的ke">
+<meta property="og:description" content="购物车搭建">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201203161817958.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201203161828636.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201203162624645.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201203162632316.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="article:published_time" content="2020-12-05T01:52:40.000Z">
-<meta property="article:modified_time" content="2020-12-05T01:53:06.676Z">
+<meta property="article:modified_time" content="2020-12-05T02:07:48.929Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201203161817958.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
@@ -105,7 +105,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a>
+        <p>购物车搭建</p>
+<a id="more"></a>
 
 <p>购物车有两种情况：</p>
 <p> 在线购物车；</p>
@@ -163,7 +164,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8819%EF%BC%89%E8%B4%AD%E7%89%A9%E8%BD%A6/" data-id="ckib1qb3e0008pcu1ax7h3kmv" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8819%EF%BC%89%E8%B4%AD%E7%89%A9%E8%BD%A6/" data-id="ckib26xhb000bxgu1eysthhux" class="article-share-link">Share</a>
       
       
     </footer>

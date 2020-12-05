@@ -7,17 +7,17 @@
   
   <title>学习笔记（16）多线程 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="123456789101112131415161718192021222324252627282930313233343536373839404142&#x2F;** * 数据库（商品的基本信息表、商品的属性表、商品的促销表）和  es(info&#x2F;attr&#x2F;sale) * * 查加缓存 * 1、第一次查。肯定长。 * @return *&#x2F;public EsProd">
+  <meta name="description" content="多线程异步处理及线程池隔离">
 <meta property="og:type" content="article">
 <meta property="og:title" content="学习笔记（16）多线程">
 <meta property="og:url" content="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8816%EF%BC%89%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142&#x2F;** * 数据库（商品的基本信息表、商品的属性表、商品的促销表）和  es(info&#x2F;attr&#x2F;sale) * * 查加缓存 * 1、第一次查。肯定长。 * @return *&#x2F;public EsProd">
+<meta property="og:description" content="多线程异步处理及线程池隔离">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201203160219200.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201203160353225.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="article:published_time" content="2020-12-05T01:50:41.000Z">
-<meta property="article:modified_time" content="2020-12-05T01:51:08.732Z">
+<meta property="article:modified_time" content="2020-12-05T02:07:01.667Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201203160219200.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
@@ -91,7 +91,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a>
+        <p>多线程异步处理及线程池隔离</p>
+<a id="more"></a>
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 数据库（商品的基本信息表、商品的属性表、商品的促销表）和  es(info&#x2F;attr&#x2F;sale)</span><br><span class="line"> *</span><br><span class="line"> * 查加缓存</span><br><span class="line"> * 1、第一次查。肯定长。</span><br><span class="line"> * @return</span><br><span class="line"> *&#x2F;</span><br><span class="line">public EsProduct productInfo2(Long id)&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    CompletableFuture.supplyAsync(()-&gt;&#123;</span><br><span class="line">        return &quot;&quot;;</span><br><span class="line">    &#125;,threadPoolExecutor).whenComplete((r,e)-&gt;&#123;</span><br><span class="line">        System.out.println(&quot;处理结果&quot;+r);</span><br><span class="line">        System.out.println(&quot;处理异常&quot;+e);</span><br><span class="line">    &#125;);</span><br><span class="line">    &#x2F;&#x2F;1、商品基本数据（名字介绍等） 100ms   异步</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;2、商品的属性数据  300ms</span><br><span class="line">    new Thread(()-&gt;&#123;</span><br><span class="line">        System.out.println(&quot;查属性信息&quot;);</span><br><span class="line">    &#125;).start();</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;3、商品的营销数据  SmsService 1s 500ms</span><br><span class="line">    new Thread(()-&gt;&#123;</span><br><span class="line">        System.out.println(&quot;查营销信息&quot;);</span><br><span class="line">    &#125;).start();</span><br><span class="line">    &#x2F;&#x2F;4、商品的配送数据  WuliuService 2s  700ms</span><br><span class="line">    new Thread(()-&gt;&#123;</span><br><span class="line">        System.out.println(&quot;查配送信息&quot;);</span><br><span class="line">    &#125;).start();</span><br><span class="line">    &#x2F;&#x2F;5、商品的增值服务数据  SaleService  1s 1s</span><br><span class="line">    new Thread(()-&gt;&#123;</span><br><span class="line">        System.out.println(&quot;查增值信息&quot;);</span><br><span class="line">    &#125;).start();</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;otherThreadPoolExecutor.submit()</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -123,7 +124,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8816%EF%BC%89%E5%A4%9A%E7%BA%BF%E7%A8%8B/" data-id="ckib1qb3d0007pcu183bw3et4" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8816%EF%BC%89%E5%A4%9A%E7%BA%BF%E7%A8%8B/" data-id="ckib26xh90007xgu11dtx2th5" class="article-share-link">Share</a>
       
       
     </footer>

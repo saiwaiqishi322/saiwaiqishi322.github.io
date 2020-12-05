@@ -7,16 +7,16 @@
   
   <title>学习笔记（3）登录实现 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="跨域请求invalid CORS：非法跨域请求。@CrossOrigin解决 所谓跨域请求就是指：当前发起请求的域与该请求所指向的资源所在的域不一致(协议、域名、端口，任意一个不一样都会导致。 浏览器要设置同源策略，正是因为浏览器要出于安全考虑。如果缺少了同源策略，浏览器很容易受到XSS和CSRF等攻击。(XSS与CSRF可以单独成为一个额外的知识点) 此时会导致一个域名下网页的操作就可以直接">
+  <meta name="description" content="项目的登录实现">
 <meta property="og:type" content="article">
 <meta property="og:title" content="学习笔记（3）登录实现">
 <meta property="og:url" content="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89%E7%99%BB%E5%BD%95%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="跨域请求invalid CORS：非法跨域请求。@CrossOrigin解决 所谓跨域请求就是指：当前发起请求的域与该请求所指向的资源所在的域不一致(协议、域名、端口，任意一个不一样都会导致。 浏览器要设置同源策略，正是因为浏览器要出于安全考虑。如果缺少了同源策略，浏览器很容易受到XSS和CSRF等攻击。(XSS与CSRF可以单独成为一个额外的知识点) 此时会导致一个域名下网页的操作就可以直接">
+<meta property="og:description" content="项目的登录实现">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/7c5fee7529906a85647c8853064a0dc3.png">
 <meta property="article:published_time" content="2020-12-05T01:30:00.000Z">
-<meta property="article:modified_time" content="2020-12-05T01:39:22.723Z">
+<meta property="article:modified_time" content="2020-12-05T01:58:01.994Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://img-blog.csdnimg.cn/img_convert/7c5fee7529906a85647c8853064a0dc3.png">
@@ -90,7 +90,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a>
+        <p>项目的登录实现</p>
+<a id="more"></a>
 
 <h2 id="跨域请求"><a href="#跨域请求" class="headerlink" title="跨域请求"></a>跨域请求</h2><p>invalid CORS：非法跨域请求。@CrossOrigin解决</p>
 <p>所谓跨域请求就是指：当前发起请求的域与该请求所指向的资源所在的域不一致(协议、域名、端口，任意一个不一样都会导致。</p>
@@ -111,7 +112,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89%E7%99%BB%E5%BD%95%E5%AE%9E%E7%8E%B0/" data-id="ckib1qb3j000gpcu169m82z3a" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89%E7%99%BB%E5%BD%95%E5%AE%9E%E7%8E%B0/" data-id="ckib26xhf000hxgu1ey8s2rtq" class="article-share-link">Share</a>
       
       
     </footer>
