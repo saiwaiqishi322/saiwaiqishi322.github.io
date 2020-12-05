@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>学习笔记（3）登录实现 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="跨域请求invalid CORS：非法跨域请求。@CrossOrigin解决 所谓跨域请求就是指：当前发起请求的域与该请求所指向的资源所在的域不一致(协议、域名、端口，任意一个不一样都会导致。 浏览器要设置同源策略，正是因为浏览器要出于安全考虑。如果缺少了同源策略，浏览器很容易受到XSS和CSRF等攻击。(XSS与CSRF可以单独成为一个额外的知识点) 此时会导致一个域名下网页的操作就可以直接">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习笔记（3）登录实现">
+<meta property="og:url" content="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89%E7%99%BB%E5%BD%95%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="跨域请求invalid CORS：非法跨域请求。@CrossOrigin解决 所谓跨域请求就是指：当前发起请求的域与该请求所指向的资源所在的域不一致(协议、域名、端口，任意一个不一样都会导致。 浏览器要设置同源策略，正是因为浏览器要出于安全考虑。如果缺少了同源策略，浏览器很容易受到XSS和CSRF等攻击。(XSS与CSRF可以单独成为一个额外的知识点) 此时会导致一个域名下网页的操作就可以直接">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/7c5fee7529906a85647c8853064a0dc3.png">
+<meta property="article:published_time" content="2020-12-05T01:30:00.000Z">
+<meta property="article:modified_time" content="2020-12-05T01:39:22.723Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/img_convert/7c5fee7529906a85647c8853064a0dc3.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-学习笔记（3）登录实现" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89%E7%99%BB%E5%BD%95%E5%AE%9E%E7%8E%B0/" class="article-date">
+  <time datetime="2020-12-05T01:30:00.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      学习笔记（3）登录实现
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+
+<h2 id="跨域请求"><a href="#跨域请求" class="headerlink" title="跨域请求"></a>跨域请求</h2><p>invalid CORS：非法跨域请求。@CrossOrigin解决</p>
+<p>所谓跨域请求就是指：当前发起请求的域与该请求所指向的资源所在的域不一致(协议、域名、端口，任意一个不一样都会导致。</p>
+<p>浏览器要设置同源策略，正是因为浏览器要出于安全考虑。如果缺少了同源策略，浏览器很容易受到<strong>XSS</strong>和<strong>CSRF</strong>等攻击。(<code>XSS</code>与<code>CSRF</code>可以单独成为一个额外的知识点) 此时会导致一个域名下网页的操作就可以直接拿到另一个非同域名下网页的任何信息,或者一个网页可以随意请求到不同域名服务器下的接口数据。</p>
+<p>同源策略是一种约定,这是浏览器核心的安全功能点之一。所谓的同源策略指的是【<strong>协议</strong> + <strong>域名</strong> + <strong>端口</strong>】三者相同,如果两个相同的域名指向同一个<code>ip</code>地址，也是非同源的情况。同时地址印射对应的<code>ip</code>两者也是非同源情况。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/7c5fee7529906a85647c8853064a0dc3.png" alt="img"></p>
+<p>跨域请求为什么出现在前端中的原因：</p>
+<ul>
+<li>既然同源策略是浏览器的核心基础安全策略，那为什么我们在进行前端开发特别是Ajax调用时还要进行跨域请求呢?同源策略是用来防御来自非法的攻击，但我们不能因为防御非法的攻击就将所有的跨域都拦截掉。</li>
+<li>在现代前端开发中，我们经常需要调用第三方的服务接口(例如mock server、fake api)，随着专业化分工的出现有很多专业的信息服务提供商为前端开发者提供各类接口，这种情况下就需要进行跨域请求(这类前端接口服务很多是采用的cors方式来解决跨域问题的，下文会详细介绍)。</li>
+<li>还有一类情况是在前后端分离的项目中，前端后端分属于不同的服务跨域问题在采用这种架构的时候就存在。而且现在很多项目都采用这种前后分离的方式，这类项目很多是会采用反向代理的方式来解决跨域问题。</li>
+</ul>
+<h2 id="登录流程"><a href="#登录流程" class="headerlink" title="登录流程"></a>登录流程</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@RequestBody UmsAdminLoginParam umsAdminLoginParam</span><br><span class="line">前端传来数据进行封装</span><br></pre></td></tr></table></figure>
+
+<p>登录成功后返回token，用commomResult封装</p>
+<p>查询用户信息的方法调用流程，AdminServiceImpl -&gt; AdminMapper -&gt;Admin</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">QueryWrapper&lt;Admin&gt; wrapper &#x3D; new QueryWrapper&lt;Admin&gt;().eq(&quot;username&quot;, username).eq(&quot;password&quot;, s);</span><br><span class="line"> QueryWrapper是mybatis的查询条件</span><br><span class="line">* 后台用户管理</span><br><span class="line">* SpringMVC支持使用 【JSR303】 方式进行校验</span><br><span class="line">* 1、springboot默认导第三方的校验框架hibernate-validator</span><br><span class="line">*</span><br><span class="line">* 使用JSR303的三大步</span><br><span class="line">* 1）、给需要校验数据的javaBean上标注校验注解；</span><br><span class="line">* 2）、告诉SpringBoot，这个需要校验；@Valid</span><br><span class="line">*      springmvc进入方法之前，确定参数值的时候就会进行校验，如果校验出错，直接返回错误，不执行controller代码</span><br><span class="line">* 3）、如何感知校验成功还是失败；</span><br><span class="line">*      只需要给开启了校验的javaBean参数后面，紧跟一个BindingResult对象就可以</span><br><span class="line">gmall.jwt.tokenHeader&#x3D;Authorization</span><br><span class="line">gmall.jwt.secret&#x3D;atguigu_2019</span><br><span class="line">gmall.jwt.expiration&#x3D;604800</span><br><span class="line">gmall.jwt.tokenHead&#x3D;Bearer&#x2F;&#x2F;带来个前缀</span><br><span class="line"></span><br><span class="line">@ApiOperation(value &#x3D; &quot;获取当前登录用户信息&quot;)</span><br><span class="line">    @RequestMapping(value &#x3D; &quot;&#x2F;info&quot;, method &#x3D; RequestMethod.GET)</span><br><span class="line">    @ResponseBody</span><br><span class="line">    public Object getAdminInfo(HttpServletRequest request) &#123;</span><br><span class="line">        String oldToken &#x3D; request.getHeader(tokenHeader);</span><br><span class="line"></span><br><span class="line">        String userName &#x3D; jwtTokenUtil.getUserNameFromToken(oldToken.substring(tokenHead.length()));&#x2F;&#x2F;所以截取前缀</span><br><span class="line">        &#x2F;&#x2F;查询用户的头像</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;1、getOne是mybatis-plus生成的，而且带了泛型的。</span><br><span class="line">        &#x2F;&#x2F;2、dubbo没办法直接调用mp中带泛型的service；</span><br><span class="line">        &#x2F;&#x2F;3、实战经验：</span><br><span class="line">        &#x2F;&#x2F;  mp自动生成有可能用兼容问题，最好不要远程调用；</span><br><span class="line">        &#x2F;&#x2F;</span><br><span class="line">      &#x2F;&#x2F; Admin umsAdmin &#x3D; adminService.getOne(new QueryWrapper&lt;Admin&gt;().eq(&quot;username&quot;, userName));</span><br><span class="line">        Admin umsAdmin &#x3D; adminService.getUserInfo(userName);</span><br><span class="line">        Map&lt;String, Object&gt; data &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">        data.put(&quot;username&quot;, umsAdmin.getUsername());</span><br><span class="line">        data.put(&quot;roles&quot;, new String[]&#123;&quot;TEST&quot;&#125;);</span><br><span class="line">        data.put(&quot;icon&quot;, umsAdmin.getIcon());</span><br><span class="line">        return new CommonResult().success(data);</span><br><span class="line">    &#125;</span><br><span class="line">&#x2F;**</span><br><span class="line"> * 登录成功以后用户的信息以jwt令牌的方式返回给前端</span><br><span class="line"> * @param umsAdminLoginParam</span><br><span class="line"> * @param result</span><br><span class="line"> * @return</span><br><span class="line"> *</span><br><span class="line"> * 1、如果前端发过来的是json字符串，要封装对象。</span><br><span class="line"> * public Object login(@RequestBody UmsAdminLoginParam umsAdminLoginParam)</span><br><span class="line"> * 2、如果前端发过来的是k&#x3D;v&amp;k&#x3D;v符串，要封装对象。</span><br><span class="line"> * public Object login(UmsAdminLoginParam umsAdminLoginParam)</span><br><span class="line"> *</span><br><span class="line"> *&#x2F;</span><br><span class="line">@ApiOperation(value &#x3D; &quot;登录以后返回token&quot;)</span><br><span class="line">@PostMapping(value &#x3D; &quot;&#x2F;login&quot;)</span><br><span class="line">public Object login(@RequestBody UmsAdminLoginParam umsAdminLoginParam, BindingResult result) &#123;</span><br><span class="line">    &#x2F;&#x2F;去数据库登陆</span><br><span class="line">    Admin admin &#x3D; adminService.login(umsAdminLoginParam.getUsername(), umsAdminLoginParam.getPassword());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;登陆成功生成token，此token携带基本用户信息，以后就不用去数据库了</span><br><span class="line">    String token &#x3D; jwtTokenUtil.generateToken(admin);</span><br><span class="line">    if (token &#x3D;&#x3D; null) &#123;</span><br><span class="line">        return new CommonResult().validateFailed(&quot;用户名或密码错误&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    Map&lt;String, String&gt; tokenMap &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">    tokenMap.put(&quot;token&quot;, token);</span><br><span class="line">    tokenMap.put(&quot;tokenHead&quot;, tokenHead);</span><br><span class="line">    return new CommonResult().success(tokenMap);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89%E7%99%BB%E5%BD%95%E5%AE%9E%E7%8E%B0/" data-id="ckib1p4c6000d40u1hqhkgtbk" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%884%EF%BC%89%E5%95%86%E5%93%81%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          学习笔记（4）商品查询实现
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%8F%AF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">学习笔记（2）基本配置以及高性能高可用数据库设计</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8822%EF%BC%89%E8%AE%A2%E5%8D%95%E6%9C%8D%E5%8A%A1/">学习笔记（22）订单服务</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8821%EF%BC%89%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">学习笔记（21）消息队列</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8820%EF%BC%89%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">学习笔记（20）分布式事务</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8819%EF%BC%89%E8%B4%AD%E7%89%A9%E8%BD%A6/">学习笔记（19）购物车&#34;</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8818%EF%BC%89%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/">学习笔记（18）单点登录</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

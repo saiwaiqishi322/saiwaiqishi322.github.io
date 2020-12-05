@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/page/2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-学习笔记（11）商品上架与ES检索" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8811%EF%BC%89%E5%95%86%E5%93%81%E4%B8%8A%E6%9E%B6%E4%B8%8EES%E6%A3%80%E7%B4%A2/" class="article-date">
+  <time datetime="2020-12-05T01:46:27.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8811%EF%BC%89%E5%95%86%E5%93%81%E4%B8%8A%E6%9E%B6%E4%B8%8EES%E6%A3%80%E7%B4%A2/">学习笔记（11）商品上架与ES检索</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="商品上架"><a href="#商品上架" class="headerlink" title="商品上架"></a>商品上架</h2><p>商品里有很多SKU：</p>
+<p><img src="https://img-blog.csdnimg.cn/20201202100639267.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>每个SKU有自己的销售属性：<br><img src="https://img-blog.csdnimg.cn/20201202100700865.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>除此之外，每个商品有共用的商品属性：</p>
+<p><img src="https://img-blog.csdnimg.cn/20201202100728593.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>检索出来的界面标题是SPU+SKU都有</p>
+<p>查询商品的详情</p>
+<p>SPU的信息拿来筛选，SKU的信息拿来售卖<br><img src="https://img-blog.csdnimg.cn/20201202100756694.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT pav.*,pa.&#96;name&#96; FROM &#96;pms_product_attribute_value&#96; pav </span><br><span class="line">	LEFT JOIN &#96;pms_product_attribute&#96; pa</span><br><span class="line">	ON pa.&#96;id&#96; &#x3D; pav.&#96;product_attribute_id&#96;</span><br><span class="line">WHERE pav.&#96;product_id&#96; &#x3D;23</span><br></pre></td></tr></table></figure>
+
+<p>上架5号</p>
+<p><img src="https://img-blog.csdnimg.cn/20201202100820579.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20201202100849596.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201202100857607.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>dubbo集群容错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查询多试验几次，增删改要快速失败。选择dubbo的快速失败模式</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201202100938283.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>dubbo配置默认在服务上，调不精细</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">CudSerivce：增删改service</span><br><span class="line">* RService：读service</span><br><span class="line">*</span><br><span class="line">*1）、dubbo的默认集群容错哪几种，怎么做？</span><br><span class="line">* failover&#x2F;failfast&#x2F;failsafe&#x2F;failback&#x2F;forking；</span><br><span class="line">* @Service注解上一配置就行。</span><br><span class="line">目前本系统未按此设计</span><br><span class="line">* 改掉默认的mapping信息；</span><br><span class="line">* 1）、改掉不分词的字段</span><br><span class="line">* 2）、整个info就是ESProduct,&#x2F;&#x2F;嵌入式对象的Mapping一定要用nested声明，这样才能正确的检索到数据</span><br><span class="line">不分词用keyword</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201202101011326.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>什么需要评分：只有在搜索框搜的关键字需要评分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"> &#x2F;**</span><br><span class="line">     * 给数据库插入数据</span><br><span class="line">     * 1）、dubbo远程调用插入数据服务，可能经常超时。dubbo默认会重试</span><br><span class="line">     * 导致这个方法会被调用多次。可能导致数据库同样的数据有多个。</span><br><span class="line">     *</span><br><span class="line">     * 2）、dubbo有自己默认的集群容错。</span><br><span class="line">     *</span><br><span class="line">     * 给数据库做数据的，最好用dubbo的快速失败模式。我们手工重试</span><br><span class="line">     *</span><br><span class="line">     * @param id</span><br><span class="line">     *&#x2F;</span><br><span class="line">    private void saveProductToEs(Long id) &#123;</span><br><span class="line">        &#x2F;&#x2F;1、查出商品的基本新</span><br><span class="line">        Product productInfo &#x3D; productInfo(id);</span><br><span class="line">        EsProduct esProduct &#x3D; new EsProduct();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;1、复制基本信息</span><br><span class="line">        BeanUtils.copyProperties(productInfo,esProduct);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;2、复制sku信息，对于es要保存商品信息,还要查出这个商品的sku，给es中保存</span><br><span class="line">        List&lt;SkuStock&gt; stocks &#x3D; skuStockMapper.selectList(new QueryWrapper&lt;SkuStock&gt;().eq(&quot;product_id&quot;, id));</span><br><span class="line">        List&lt;EsSkuProductInfo&gt; esSkuProductInfos &#x3D; new ArrayList&lt;&gt;(stocks.size());</span><br><span class="line"></span><br><span class="line"> &#x2F;&#x2F;       List&lt;EsProductAttributeValue&gt; skuAttributeNames &#x3D; productAttributeValueMapper.selectProductSaleAttrName(id);</span><br><span class="line">&#x2F;&#x2F;        List&lt;EsProductAttributeValue&gt; attributeValues &#x3D; productAttributeValueMapper.selectProductBaseAttrAndValue(id);</span><br><span class="line">        &#x2F;&#x2F;查出当前商品的sku属性  颜色  尺码</span><br><span class="line">        List&lt;ProductAttribute&gt;  skuAttributeNames &#x3D; productAttributeValueMapper.selectProductSaleAttrName(id);</span><br><span class="line">        stocks.forEach((skuStock)-&gt;&#123;</span><br><span class="line">            EsSkuProductInfo info &#x3D; new EsSkuProductInfo();</span><br><span class="line">            BeanUtils.copyProperties(skuStock,info);</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;闪亮 黑色</span><br><span class="line">            String subTitle &#x3D; esProduct.getName();</span><br><span class="line">            if(!StringUtils.isEmpty(skuStock.getSp1()))&#123;</span><br><span class="line">                subTitle+&#x3D;&quot; &quot;+skuStock.getSp1();</span><br><span class="line">            &#125;</span><br><span class="line">            if(!StringUtils.isEmpty(skuStock.getSp2()))&#123;</span><br><span class="line">                subTitle+&#x3D;&quot; &quot;+skuStock.getSp2();</span><br><span class="line">            &#125;</span><br><span class="line">            if(!StringUtils.isEmpty(skuStock.getSp3()))&#123;</span><br><span class="line">                subTitle+&#x3D;&quot; &quot;+skuStock.getSp3();</span><br><span class="line">            &#125;</span><br><span class="line">            &#x2F;&#x2F;sku的特色标题</span><br><span class="line">            info.setSkuTitle(subTitle);</span><br><span class="line">            List&lt;EsProductAttributeValue&gt; skuAttributeValues &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">            for (int i&#x3D;0;i&lt;skuAttributeNames.size();i++)&#123;</span><br><span class="line">                &#x2F;&#x2F;skuAttr 颜色&#x2F;尺码</span><br><span class="line">                EsProductAttributeValue value &#x3D; new EsProductAttributeValue();</span><br><span class="line"></span><br><span class="line">                value.setName(skuAttributeNames.get(i).getName());</span><br><span class="line">                value.setProductId(id);</span><br><span class="line">                value.setProductAttributeId(skuAttributeNames.get(i).getId());</span><br><span class="line">                value.setType(skuAttributeNames.get(i).getType());</span><br><span class="line"></span><br><span class="line">                &#x2F;&#x2F;颜色   尺码;让es去统计‘；改掉查询商品的属性分类里面所有属性的时候，按照sort字段排序好</span><br><span class="line">                if(i&#x3D;&#x3D;0)&#123;</span><br><span class="line">                    value.setValue(skuStock.getSp1());</span><br><span class="line">                &#125;</span><br><span class="line">                if(i&#x3D;&#x3D;1)&#123;</span><br><span class="line">                    value.setValue(skuStock.getSp2());</span><br><span class="line">                &#125;</span><br><span class="line">                if(i&#x3D;&#x3D;2)&#123;</span><br><span class="line">                    value.setValue(skuStock.getSp3());</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                skuAttributeValues.add(value);</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            info.setAttributeValues(skuAttributeValues);</span><br><span class="line">            &#x2F;&#x2F;sku有多个销售属性；颜色，尺码</span><br><span class="line">            esSkuProductInfos.add(info);</span><br><span class="line">            &#x2F;&#x2F;查出销售属性的名</span><br><span class="line"></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        esProduct.setSkuProductInfos(esSkuProductInfos);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        List&lt;EsProductAttributeValue&gt; attributeValues &#x3D; productAttributeValueMapper.selectProductBaseAttrAndValue(id);</span><br><span class="line">        &#x2F;&#x2F;3、复制公共属性信息，查出这个商品的公共属性</span><br><span class="line">        esProduct.setAttrValueList(attributeValues);</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            &#x2F;&#x2F;把商品保存到es中</span><br><span class="line">            Index build &#x3D; new Index.Builder(esProduct)</span><br><span class="line">                    .index(EsConstant.PRODUCT_ES_INDEX)</span><br><span class="line">                    .type(EsConstant.PRODUCT_INFO_ES_TYPE)</span><br><span class="line">                    .id(id.toString())</span><br><span class="line">                    .build();</span><br><span class="line">            DocumentResult execute &#x3D; jestClient.execute(build);</span><br><span class="line">            boolean succeeded &#x3D; execute.isSucceeded();</span><br><span class="line">            if(succeeded)&#123;</span><br><span class="line">                log.info(&quot;ES中；id为&#123;&#125;商品上架完成&quot;,id);</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">                log.error(&quot;ES中；id为&#123;&#125;商品未保存成功，开始重试&quot;,id);</span><br><span class="line">                &#x2F;&#x2F;saveProductToEs(id);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;catch (Exception e)&#123;</span><br><span class="line">            log.error(&quot;ES中；id为&#123;&#125;商品数据保存异常；&#123;&#125;&quot;,id,e.getMessage());</span><br><span class="line">            &#x2F;&#x2F;saveProductToEs(id);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>1.对于数据库是修改商品的状态位</p>
+<p>2.对于es要保存的商品信息</p>
+<p>mybatis-plus自带的更新方法是哪个字段有值就更哪个字段（所以所有类型应该用包装类，因为非包装类有默认值）</p>
+<p>我们上架的是SKU（仿京东，一些小的商城系统，比如小米，上架的是SPU，之后自己选）</p>
+<p>上下架请求：</p>
+<p><img src="https://img-blog.csdnimg.cn/20201202101112140.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>对于数据库是修改商品的状态位</p>
+<p>对于es要保存商品信息</p>
+<p>商品的属性分类如下：</p>
+<p><img src="https://img-blog.csdnimg.cn/20201202101133351.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>SKU有其基本信息，又有销售属性</p>
+<p>javaBean应该都去用包装类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public void setProductPublishStatus(Integer publishStatus, Long id) &#123;</span><br><span class="line">    &#x2F;&#x2F;javaBean应该都去用包装类型</span><br><span class="line">    Product product &#x3D; new Product();</span><br><span class="line">    &#x2F;&#x2F;默认所有属性为null</span><br><span class="line">    product.setId(id);</span><br><span class="line">    product.setPublishStatus(publishStatus);</span><br><span class="line">    &#x2F;&#x2F;mybatis-plus自带的更新方法是哪个字段有值就更哪个字段</span><br><span class="line">    productMapper.updateById(product);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>es也会占用硬盘空间 ，同步</p>
+<h2 id="检索服务"><a href="#检索服务" class="headerlink" title="检索服务"></a>检索服务</h2><p>分布式系统下，session不一致，前端第一次请求到达x服务器上，下回请求来到y服务器，就取不出来了，session不一致</p>
+<p>后端解决session不一致问题麻烦，但是前端解决容易，访问来访问去就是浏览器。</p>
+<p>gmall-shop-portal: 和前端公众访问的商品项目进行对接的web</p>
+<h2 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h2><p>第一步：分析页面会传入哪些参数，可以把所有参数写成一个javaBean</p>
+<p>第二步：要把哪些结果返回去</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 检索前端传递的数据</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Data</span><br><span class="line">public class SearchParam implements Serializable &#123;</span><br><span class="line">@Data</span><br><span class="line">public class SearchResponse implements Serializable &#123;</span><br><span class="line"></span><br><span class="line">    private SearchResponseAttrVo brand;&#x2F;&#x2F;品牌</span><br><span class="line">    private SearchResponseAttrVo catelog;&#x2F;&#x2F;分类</span><br><span class="line">    &#x2F;&#x2F;所有商品的顶头显示的筛选属性</span><br><span class="line">    private List&lt;SearchResponseAttrVo&gt; attrs &#x3D; new ArrayList&lt;SearchResponseAttrVo&gt;();</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;检索出来的商品信息</span><br><span class="line">    private List&lt;EsProduct&gt; products &#x3D; new ArrayList&lt;EsProduct&gt;();</span><br><span class="line"></span><br><span class="line">    private Long total;&#x2F;&#x2F;总记录数</span><br><span class="line">    private Integer pageSize;&#x2F;&#x2F;每页显示的内容</span><br><span class="line">    private Integer pageNum;&#x2F;&#x2F;当前页面</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201202101323139.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>每个 SearchResponseAttrVo相当于上图的一行</p>
+<p>启动前端项目：npm install</p>
+<p>web服务是消费者</p>
+<p><img src="https://img-blog.csdnimg.cn/20201202101349249.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>前端查询发来search请求</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">public class SearchProductServiceImpl implements SearchProductService &#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    JestClient jestClient;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public SearchResponse searchProduct(SearchParam searchParam) &#123;</span><br><span class="line">        &#x2F;&#x2F;1、构建检索条件</span><br><span class="line">        String dsl &#x3D; buildDsl(searchParam);</span><br><span class="line"></span><br><span class="line">        log.error(&quot;商品检索的详细数据&#123;&#125;&quot;,dsl);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Search search &#x3D; new Search.Builder(dsl).addIndex(EsConstant.PRODUCT_ES_INDEX)</span><br><span class="line">                .addType(EsConstant.PRODUCT_INFO_ES_TYPE)</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        SearchResult execute &#x3D; null;</span><br><span class="line">        try &#123;</span><br><span class="line">            &#x2F;&#x2F;2、检索</span><br><span class="line">            execute &#x3D; jestClient.execute(search);</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;3、将返回的SearchResult转为SearchResponse</span><br><span class="line">        SearchResponse searchResponse &#x3D; buildSearchResponse(execute);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        searchResponse.setPageNum(searchParam.getPageNum());</span><br><span class="line">        searchResponse.setPageSize(searchParam.getPageSize());</span><br><span class="line"></span><br><span class="line">        return searchResponse;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>聚合三大聚，分别为品牌聚，分类聚，属性聚</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8811%EF%BC%89%E5%95%86%E5%93%81%E4%B8%8A%E6%9E%B6%E4%B8%8EES%E6%A3%80%E7%B4%A2/" data-id="ckib1p4bw000140u10zti5ilg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-学习笔记（10）ES检索" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8810%EF%BC%89ES%E6%A3%80%E7%B4%A2/" class="article-date">
+  <time datetime="2020-12-05T01:45:31.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8810%EF%BC%89ES%E6%A3%80%E7%B4%A2/">学习笔记（10）ES检索</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+
+<h1 id="es"><a href="#es" class="headerlink" title="es"></a>es</h1><p>正排索引按照数据的id（索引），查出数据的内容</p>
+<p>倒排索引按照数据的内容锁定到数据的索引</p>
+<p>节点负载：主节点的角色既为master又为data，既要存储数据，又要计算该数据应该再哪一个分片上</p>
+<p>选主时暂停服务，保证可用性<br>学习参考链接：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zlslch/p/6440114.html">https://www.cnblogs.com/zlslch/p/6440114.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/index.html">https://www.elastic.co/guide/cn/elasticsearch/guide/current/index.html</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(SpringRunner.class)</span><br><span class="line">@SpringBootTest</span><br><span class="line">public class EsDemoApplicationTests &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    JestClient jestClient;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void contextLoads() &#123;</span><br><span class="line">        System.out.println(jestClient);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void index() throws IOException &#123;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;Update  Delete Search Index</span><br><span class="line">        &#x2F;&#x2F;1、Action action &#x3D; new Crud.Builder(携带的数据).其他信息.build();</span><br><span class="line">        &#x2F;&#x2F;2、DocumentResult execute &#x3D; jestClient.execute(action);</span><br><span class="line">        &#x2F;&#x2F;3、获取结果DocumentResult数据即可</span><br><span class="line"></span><br><span class="line">        User user &#x3D; new User();</span><br><span class="line">        user.setEmail(&quot;122333&quot;);user.setUserName(&quot;dsadasda&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Index index &#x3D; new Index.Builder(user)</span><br><span class="line">                .index(&quot;user&quot;)</span><br><span class="line">                .type(&quot;info&quot;)</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        DocumentResult execute &#x3D; jestClient.execute(index);</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;执行？&quot;+execute.getId()+&quot;&#x3D;&#x3D;&gt;&quot;+execute.isSucceeded());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void query() throws IOException &#123;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#123;\&quot;query\&quot;:\&quot;&#123;\&quot;match_all\&quot;:\&quot;&#123;&#125;\&quot;&#125;\&quot;&#125;</span><br><span class="line">        String queryJson &#x3D;&quot;&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Search search &#x3D; new Search.Builder(queryJson).addIndex(&quot;user&quot;).build();</span><br><span class="line"></span><br><span class="line">        SearchResult execute &#x3D;</span><br><span class="line">                jestClient.execute(search);</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;总记录&quot;+execute.getTotal()+&quot;&#x3D;&#x3D;&gt;最大得分：&quot;+execute.getMaxScore());</span><br><span class="line">        System.out.println(&quot;查到的数据&quot;);</span><br><span class="line">        List&lt;SearchResult.Hit&lt;User, Void&gt;&gt; hits &#x3D; execute.getHits(User.class);</span><br><span class="line">        hits.forEach((hit)-&gt;&#123;</span><br><span class="line">            User u &#x3D; hit.source;</span><br><span class="line">            System.out.println(u.getEmail()+&quot;&#x3D;&#x3D;&gt;&quot;+u.getUserName());</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class User&#123;</span><br><span class="line">    private String userName;</span><br><span class="line">    private String email;</span><br><span class="line"></span><br><span class="line">    public void setEmail(String email) &#123;</span><br><span class="line">        this.email &#x3D; email;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUserName(String userName) &#123;</span><br><span class="line">        this.userName &#x3D; userName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getEmail() &#123;</span><br><span class="line">        return email;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getUserName() &#123;</span><br><span class="line">        return userName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8810%EF%BC%89ES%E6%A3%80%E7%B4%A2/" data-id="ckib1p4br000040u12xoxgj3r" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-学习笔记（9）事务" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%889%EF%BC%89%E4%BA%8B%E5%8A%A1/" class="article-date">
+  <time datetime="2020-12-05T01:44:43.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%889%EF%BC%89%E4%BA%8B%E5%8A%A1/">学习笔记（9）事务</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+
+<p>隐式传参</p>
+<p>怎么获取代理对象呢，AopContext.currentProxy()使用ThreadLocal保存了代理对象，因此((Service) AopContext.currentProxy()).B()就能解决。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public void saveProduct(PmsProductParam productParam) &#123;</span><br><span class="line">    ProductServiceImpl proxy &#x3D; (ProductServiceImpl) AopContext.currentProxy();</span><br><span class="line">    &#x2F;&#x2F;1）、pms_product：保存商品基本信息</span><br><span class="line">    proxy.saveBaseInfo(productParam);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;5）、pms_sku_stock：sku_库存表</span><br><span class="line">    proxy.saveSkuStock(productParam);</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 以下都可以try-catch互不影响</span><br><span class="line">     *&#x2F;</span><br><span class="line">    &#x2F;&#x2F;2）、pms_product_attribute_value：保存这个商品对应的所有属性的值</span><br><span class="line">    proxy.saveProductAttributeValue(productParam);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;3）、pms_product_full_reduction：保存商品的满减信息</span><br><span class="line">    proxy.saveFullReduction(productParam);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;4）、pms_product_ladder：满减表</span><br><span class="line">    proxy.saveProductLadder(productParam);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;以上的写法只是相当于一个saveProduct事务。</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;当前线程共享同样的数据</span><br><span class="line">public static ThreadLocal&lt;Long&gt; threadLocal &#x3D; new ThreadLocal&lt;&gt;();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;ThreadLocal的原理</span><br><span class="line">private Map&lt;Thread,Long&gt; map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">有的保存函数需要商品id，如此避免多线程时读写并发</span><br><span class="line">threadLocal.set(product.getId());</span><br><span class="line">threadLocal.get()；</span><br></pre></td></tr></table></figure>
+
+<p>同一次调用，只要上面方法的数据，下面要用。我们就可以用ThreadLocal共享数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">@Transactional(propagation &#x3D; Propagation.REQUIRES_NEW,rollbackFor &#x3D; &#123;Exception.class&#125;)</span><br><span class="line">&#x2F;&#x2F;REQUIRES_NEW ： 和其它事务关联性不强，其它炸了不影响</span><br><span class="line">public void saveFullReduction(PmsProductParam productParam) &#123;</span><br><span class="line">    List&lt;ProductFullReduction&gt; fullReductionList &#x3D; productParam.getProductFullReductionList();</span><br><span class="line">    fullReductionList.forEach((reduction)-&gt;&#123;</span><br><span class="line">        reduction.setProductId(threadLocal.get());</span><br><span class="line">        productFullReductionMapper.insert(reduction);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    log.debug(&quot;当前线程....&#123;&#125;--&gt;&#123;&#125;&quot;,Thread.currentThread().getId(),Thread.currentThread().getName());</span><br><span class="line">&#125;</span><br><span class="line">事务Spring中是怎么做的？</span><br><span class="line">* TransactionManager；</span><br><span class="line">* AOP做；</span><br><span class="line">*</span><br><span class="line">* 动态代理。</span><br><span class="line">*  hahaServiceProxy.saveBaseInfo();</span><br><span class="line">动态代理。</span><br><span class="line">*  hahaServiceProxy.saveBaseInfo();</span><br><span class="line">*</span><br><span class="line">*  A&#123;</span><br><span class="line">*      A()&#123;</span><br><span class="line">*          B(); &#x2F;&#x2F;1,2,3，代表B有1,2,3三步</span><br><span class="line">*          C(); &#x2F;&#x2F;4,5,6</span><br><span class="line">*          D(); &#x2F;&#x2F;7,8,9</span><br><span class="line">*      &#125;</span><br><span class="line">*  &#125;</span><br><span class="line">*</span><br><span class="line">*  自己类调用自己类里面的方法，就是一个复制粘贴。归根到底，只是给</span><br><span class="line">*  controller&#123;</span><br><span class="line">*      serviceProxy.a();&#x2F;&#x2F;说明只是给A方法加了个事务，A并没有给B,C,D加事务</span><br><span class="line">*  &#125;</span><br><span class="line">*  对象.方法()才能加上事务。</span><br><span class="line">*</span><br><span class="line"></span><br><span class="line">*&#x2F;&#x2F;这样不会加上事务，自己调自己</span><br><span class="line">*  A()&#123;</span><br><span class="line">*      &#x2F;&#x2F;1,2,3,4,5,6,7,8,9</span><br><span class="line">*      &#x2F;&#x2F;</span><br><span class="line">*  &#125;</span><br><span class="line">* 要用代理对象加事务</span><br><span class="line">*  A&#123;</span><br><span class="line">*      A()&#123;</span><br><span class="line">*          hahaService.B();</span><br><span class="line">*          hahaService.C();</span><br><span class="line">*          hahaService.D();</span><br><span class="line">*</span><br><span class="line">*      &#125;</span><br><span class="line">*  &#125;</span><br><span class="line"></span><br><span class="line">  *  事务的问题：</span><br><span class="line">     *      Service自己调用自己的方法，无法加上真正的自己内部调整的各个事务</span><br><span class="line">     *      解决：如果是  对象.方法()那就好了</span><br><span class="line">     *       1）、要是能拿到ioc容器，从容器中再把我们的组件获取一下，用对象调方法。</span><br><span class="line">     注意1》this.方法不行，this是当前对象，但this不是代理对象，本身就是该类</span><br><span class="line">     2》&#x2F;&#x2F;    @Autowired</span><br><span class="line">&#x2F;&#x2F;    ProductService productService;</span><br><span class="line">也不行，ProductServiceImpl本来就是ProductService，自己注自己，这个独像点进去，还是自己注自己，成了死循环</span><br><span class="line">*</span><br></pre></td></tr></table></figure>
+
+<p>contriller调service</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">@Transactional(propagation &#x3D; Propagation.REQUIRED)</span><br><span class="line">@Override</span><br><span class="line">public void saveProduct(PmsProductParam productParam) &#123;</span><br><span class="line">    ProductServiceImpl proxy &#x3D; (ProductServiceImpl) AopContext.currentProxy();</span><br><span class="line">    &#x2F;&#x2F;1）、pms_product：保存商品基本信息</span><br><span class="line">    proxy.saveBaseInfo(productParam);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;5）、pms_sku_stock：sku_库存表</span><br><span class="line">    proxy.saveSkuStock(productParam);</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 以下都可以try-catch互不影响</span><br><span class="line">     *&#x2F;</span><br><span class="line">    &#x2F;&#x2F;2）、pms_product_attribute_value：保存这个商品对应的所有属性的值</span><br><span class="line">    proxy.saveProductAttributeValue(productParam);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;3）、pms_product_full_reduction：保存商品的满减信息</span><br><span class="line">    proxy.saveFullReduction(productParam);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;4）、pms_product_ladder：满减表</span><br><span class="line">    proxy.saveProductLadder(productParam);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;以上的写法只是相当于一个saveProduct事务。(没有Proxy）</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"> 事务的最终解决方案；</span><br><span class="line">*    1）、普通加事务。导入jdbc-starter，@EnableTransactionManagement，加@Transactional</span><br><span class="line">*    2）、方法自己调自己类里面的加不上事务。</span><br><span class="line">*          1）、导入aop包，开启代理对象的相关功能</span><br><span class="line">*               &lt;dependency&gt;</span><br><span class="line">*                   &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">*                   &lt;artifactId&gt;spring-boot-starter-aop&lt;&#x2F;artifactId&gt;</span><br><span class="line">*               &lt;&#x2F;dependency&gt;</span><br><span class="line">*          2）、获取到当前类真正的代理对象，去掉方法即可</span><br><span class="line">*                 1）、@EnableAspectJAutoProxy(exposeProxy &#x3D; true):暴露代理对象</span><br><span class="line">*                 2）、获取代理对象； </span><br><span class="line">		ProductServiceImpl proxy &#x3D; (ProductServiceImpl) AopContext.currentProxy();</span><br><span class="line">* 异常回滚策略</span><br><span class="line">* 异常：</span><br><span class="line">*      运行时异常（不受检查异常）</span><br><span class="line">*          ArithmeticException ......</span><br><span class="line">*      编译时异常（受检异常）</span><br><span class="line">*            FileNotFound；1）要么throw要么try- catch</span><br><span class="line">*</span><br><span class="line">* 运行的异常默认是一定回滚</span><br><span class="line">* 编译时异常默认是不回滚的；</span><br><span class="line">*      rollbackFor：指定哪些异常一定回滚的。</span><br><span class="line"> @Transactional(propagation &#x3D; Propagation.REQUIRES_NEW,</span><br><span class="line">            rollbackFor &#x3D; FileNotFoundException.class,</span><br><span class="line">            noRollbackFor &#x3D; &#123;ArithmeticException.class,NullPointerException.class&#125;)</span><br><span class="line">    public void saveProductLadder(PmsProductParam productParam) &#123;</span><br><span class="line">        List&lt;ProductLadder&gt; productLadderList &#x3D; productParam.getProductLadderList();</span><br><span class="line">        productLadderList.forEach((productLadder)-&gt;&#123;</span><br><span class="line">            productLadder.setProductId(threadLocal.get());</span><br><span class="line">            productLadderMapper.insert(productLadder);</span><br><span class="line"></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        log.debug(&quot;当前线程....&#123;&#125;--&gt;&#123;&#125;&quot;,Thread.currentThread().getId(),Thread.currentThread().getName());</span><br><span class="line">&#x2F;&#x2F;        int i &#x3D; 10&#x2F;0;</span><br><span class="line">&#x2F;&#x2F;        File xxxx &#x3D; new File(&quot;xxxx&quot;);</span><br><span class="line">&#x2F;&#x2F;        new FileInputStream(xxxx);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>如下图，获取到了增强代理对象</p>
+<p><img src="https://img-blog.csdnimg.cn/20201202100330881.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%889%EF%BC%89%E4%BA%8B%E5%8A%A1/" data-id="ckib1p4ca000j40u159cb7mqk" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-学习笔记（8）核心接口" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%888%EF%BC%89%E6%A0%B8%E5%BF%83%E6%8E%A5%E5%8F%A3/" class="article-date">
+  <time datetime="2020-12-05T01:44:01.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%888%EF%BC%89%E6%A0%B8%E5%BF%83%E6%8E%A5%E5%8F%A3/">学习笔记（8）核心接口</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+
+<h2 id="核心接口—商品录入前的所有数据"><a href="#核心接口—商品录入前的所有数据" class="headerlink" title="核心接口—商品录入前的所有数据"></a>核心接口—商品录入前的所有数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">@CrossOrigin</span><br><span class="line">@RestController</span><br><span class="line">public class UmsMemberLevelController &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Reference</span><br><span class="line">    MemberLevelService memberLevelService;</span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 查出所有会员等级</span><br><span class="line">     * @return</span><br><span class="line">     *&#x2F;</span><br><span class="line">    @GetMapping(&quot;&#x2F;memberLevel&#x2F;list&quot;)</span><br><span class="line">    public CommonResult memberLevelList()&#123;</span><br><span class="line">        List&lt;MemberLevel&gt; list &#x3D; memberLevelService.list();</span><br><span class="line">        return new CommonResult().success(list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;**</span><br><span class="line"> * 产品属性分类表 服务实现类</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Component</span><br><span class="line">@Service</span><br><span class="line">public class ProductAttributeCategoryServiceImpl extends ServiceImpl&lt;ProductAttributeCategoryMapper, ProductAttributeCategory&gt; implements ProductAttributeCategoryService &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    ProductAttributeCategoryMapper productAttributeCategoryMapper;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public PageInfoVo roductAttributeCategoryPageInfo(Integer pageNum, Integer pageSize) &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        IPage&lt;ProductAttributeCategory&gt; page &#x3D; productAttributeCategoryMapper.selectPage(new Page&lt;ProductAttributeCategory&gt;(pageNum, pageSize), null);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;返回分页数据对象</span><br><span class="line">        return PageInfoVo.getVo(page,pageSize.longValue());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class PageInfoVo implements Serializable &#123;</span><br><span class="line"></span><br><span class="line">    @ApiModelProperty(&quot;总记录数&quot;)</span><br><span class="line">    private Long total;</span><br><span class="line"></span><br><span class="line">    @ApiModelProperty(&quot;总页码&quot;)</span><br><span class="line">    private Long totalPage;</span><br><span class="line"></span><br><span class="line">    @ApiModelProperty(&quot;每页显示的记录数&quot;)</span><br><span class="line">    private Long pageSize;</span><br><span class="line"></span><br><span class="line">    @ApiModelProperty(&quot;分页查出的数据&quot;)</span><br><span class="line">    private List&lt;? extends  Object&gt; list;</span><br><span class="line"></span><br><span class="line">    @ApiModelProperty(&quot;当前页的页码&quot;)</span><br><span class="line">    private Long pageNum;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public static PageInfoVo getVo(IPage iPage,Long size)&#123;</span><br><span class="line">        return new PageInfoVo(iPage.getTotal(),iPage.getPages(),size,iPage.getRecords(),</span><br><span class="line">                iPage.getCurrent());</span><br><span class="line"></span><br><span class="line">    &#125;&#x2F;&#x2F;有了该方法，这方便很多，例如上一个代码 roductAttributeCategoryPageInfo(Integer pageNum, Integer pageSize) &#123;</span><br><span class="line"></span><br><span class="line">    &#125; 调用mapper分页查询，要给前端返回一个PageInfo,把mapper查的page一传，当时的pageSize一传</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="提交在数据库创建商品"><a href="#提交在数据库创建商品" class="headerlink" title="提交在数据库创建商品"></a>提交在数据库创建商品</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@ApiOperation(&quot;创建商品&quot;)</span><br><span class="line">@PostMapping(value &#x3D; &quot;&#x2F;create&quot;)</span><br><span class="line">public Object create(@RequestBody PmsProductParam productParam) &#123;</span><br><span class="line"></span><br><span class="line">    log.debug(&quot;将要保存的商品数据是：&#123;&#125;&quot;,productParam);</span><br><span class="line"></span><br><span class="line">    log.debug(&quot;当前线程....&#123;&#125;--&gt;&#123;&#125;&quot;,Thread.currentThread().getId(),Thread.currentThread().getName());</span><br><span class="line">   productService.saveProduct(productParam);</span><br><span class="line">    return new CommonResult().success(null);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%888%EF%BC%89%E6%A0%B8%E5%BF%83%E6%8E%A5%E5%8F%A3/" data-id="ckib1p4c9000i40u11tr4dlxk" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-学习笔记（7）redis缓存" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%887%EF%BC%89redis%E7%BC%93%E5%AD%98/" class="article-date">
+  <time datetime="2020-12-05T01:43:22.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%887%EF%BC%89redis%E7%BC%93%E5%AD%98/">学习笔记（7）redis缓存</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+
+<h2 id="缓存设计"><a href="#缓存设计" class="headerlink" title="缓存设计"></a>缓存设计</h2><p>限流的理念是“多层限流、尽早限流”，缓存也是如此。缓存是利用“数据冗余”来阻挡海量请求的冲击，即缓存实际是同一份数据的不同形式拷贝。例如，数据库缓存Redis实际就是以key-value结构，来存储数据库中二维表结构的数据。Redis中的数据，实际就是数据库的一份冗余。</p>
+<p>在设计缓存时，需要明确一点：对于数据的访问，“读的次数”远远大于“写的次数”。</p>
+<h3 id="缓存动态请求"><a href="#缓存动态请求" class="headerlink" title="缓存动态请求"></a>缓存动态请求</h3><p>在秒杀活动期间，大量的用户会访问相同的商品。因此可以在秒杀开始前，提前在后台服务中将参与秒杀的商品缓存到内存中，从而减少大量的请求流入数据库中，如图所示。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/6a708009be7b9d936b83db71fbb64bdc.png" alt="图片描述"><br>在秒杀期间，也可以动态缓存频繁使用的各种数据。缓存几乎是所有并发系统的标配之一。</p>
+<p>在缓存动态请求时，还需要考虑缓存击穿、缓存雪崩和缓存穿透等问题。</p>
+<ul>
+<li>缓存击穿：如果某一个热点数据的缓存过期了，那么当大量用户同时访问这个热点数据时，就会导致数据库在缓存过期的瞬间压力突然增大；</li>
+<li>缓存雪崩：如果大量数据的缓存同时失效（可能是给大量缓存设置了相同的过期时间，也可能是缓存服务器出现故障等），那么全部的后台请求将直接奔向数据库，从而导致数据库压力过大；</li>
+<li>缓存穿透：一般而言，我们会将那些频繁查询的数据放入缓存，并不会缓存毫无意义的数据。但这也给一些不怀好意的人带来了可乘之机：如果有人恶意大量查询一些不存在的商品，那么这些查询请求就会绕过缓存而直达数据库，因此也会给数据库带来很大压力。</li>
+</ul>
+<p>缓存击穿、缓存雪崩和缓存穿透都是由于某种情况下的“缓存失效”所导致的。三者也都有各自的解决方案，举例如下：</p>
+<ul>
+<li>避免缓存击穿：通过一个线程实时监控热点数据的过期时间，如果发现某个缓存快要过期了，就开启一个异步线程去更新缓存，从而重置过期时间。或者也可以简单一点：在秒杀开始前，手工的设置热点数据在秒杀期间不会过期。；</li>
+<li>避免缓存雪崩：搭建缓存集群（如 Redis 集群），并合理的分配缓存的过期时间；</li>
+<li>避免缓存穿透：对于不存在的商品，也将其以value=”“的形式进行缓存（例如， key =“不存在的商品”, value =””）。这样一来，当以后再次查询“不存在的商品”时，也能迅速的从缓存中查到结果(结果就是””)。此外，为了防止大量无效数据长时间占用缓存容量，可以将这些无意义缓存的过期时间设置的短一些。</li>
+</ul>
+<h3 id="多级缓存"><a href="#多级缓存" class="headerlink" title="多级缓存"></a>多级缓存</h3><p>“限流”可以使用 nginx ，也可以使用 lvs + nginx 等多种组合，缓存也可以有多级。</p>
+<p>对于后台服务，可以有多级缓存。例如，可以先在本地使用 ConcurrentHashMap 、 GuavaCache 、 tomcat 缓存等作为一级缓存，然后搭建 Redis 集群作为远程的二级缓存。如果必要，还可以再在进程内增加一层缓存。</p>
+<p>显然，缓存的级数越多，抵达数据库的请求数就越少，整个系统的压力也会随之减少。但利弊总是同时存在，缓存会造成数据的一致性问题，缓存的级数越多，一致性问题就会越严重；并且多级缓存自身也会对系统造成一定的压力，例如本地缓存需要通过网络调用远程缓存，因此既会增大网络带宽，也会增加整个系统内部的调用次数。对于秒杀抢购来说，一种推荐的缓存结构是“客户端本地缓存（如浏览器缓存） + nginx（存储到 OSS ）+ CDN + 本地缓存 + redis 远程缓存”，如图所示：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/7aaa510ead3e9bda24137383e40a039d.png" alt="图片描述"><br>对于数据库缓存来说，既然缓存的读写速度要远大于数据库的速度，并且很多缓存自身也支持持久化功能，那么能否在秒杀活动期间仅仅使用数据库缓存，而不用数据库本身。当秒杀结束后再将缓存中的数据同步到数据库中，从根本上解决秒杀期间数据库读写速度慢的问题？</p>
+<p>缓存组件的设计目标是“快”，因此在设计时为了“快”而放弃了一些其它功能。例如最常用的数据库缓存 Redis 就不支持事务回滚，如果遇到了需要进行回滚的业务，那么 Redis 就无法支持了。当然，也可以通过日志处理等手段间接实现回滚功能，但这无疑又增大了系统的开发成本和性能损耗（日志的读写操作会损耗性能）。因此，架构设计时经常说的一句话“根据具体业务、具体分析，没有统一的结论”。</p>
+<h3 id="缓冲区"><a href="#缓冲区" class="headerlink" title="缓冲区"></a>缓冲区</h3><p>与缓存比较相似的一个概念是“缓冲区”。缓存一般是 Redis 等中间件，是数据库等内容的一部分拷贝，用于缓解数据库等目标服务的压力，可以理解为一个无序的容器，没有 FIFO 等特性；而缓冲区一般是内存中的一块区域（如数组），用于解决生产端和消费端速度不一致的问题，遵循着 FIFO 等规则。</p>
+<p>缓冲区几乎存在于所有的高并发技术之中，常见的缓冲区有数组和环形缓冲区两种形式，此外环形缓冲区实质也是一个首尾相连的数组，如图所示：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/7973e3ed44975ce4c47643948289c4d5.png" alt="图片描述"><br>知名的分布式计算框架 MapReduce 、单线程每秒吞吐量可达六百万以上高并发框架 disruptor 以及去哪儿网开源的消息队列 QMQ 等，都广泛使用了环形缓冲区。而另一些并发框架（如 netty ），以及 nio 等技术则使用了普通的数组作为缓冲区。</p>
+<p>在设计秒杀系统时，如果遇到后台中多个服务之间的处理速度不一致时，就可以考虑使用缓冲区进行协调。例如，在秒杀系统中，“下订单”的速度要明显快于“处理订单”的速度，因此就可以使用缓冲区平衡二者的速度：生产者（下订单服务）快速的将数据存入缓冲区中，与此同时，消费者（处理订单服务）根据自身的速度从缓冲区中获取数据。读到这里，大家应该能够发现之前介绍的消息队列本质也属于缓冲区的一种。</p>
+<h3 id="淘汰缓存"><a href="#淘汰缓存" class="headerlink" title="淘汰缓存"></a>淘汰缓存</h3><p>在秒杀等高并发系统中，缓存的功能是必不可少的。但是由于内存容量的限制，当缓存达到一定规模时，就有必要通过一些策略及时淘汰部分缓存，防止内存溢出等异常情况。常见的淘汰策略可以是基于缓存数量或缓存容量，并配合 LRU 等算法使用。但在 Java 中，还可以使用本节所讲的引用来实现缓存的淘汰策略。</p>
+<p>缓存的使用无外乎 get 和 set，在一般情况下，我们可以把要缓存的对象 set 到 HashMap 等容器中，然后在使用时直接从容器中 get 即可。但是如果要缓存的对象本身很大，那么同时将多个大对象进行缓存就会给内存带来巨大挑战。使用软引用解决这一问题，因为软引用会在内存不足时被 GC 及时回收，具体如下代码所示。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BigValue</span> </span>&#123;</span><br><span class="line">   ...</span><br><span class="line">   <span class="comment">//模拟大容量对象</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReferenceCache</span> </span>&#123;</span><br><span class="line">    Map&lt;String, SoftReference&lt;BigValue&gt;&gt; caches = <span class="keyword">new</span> HashMap();</span><br><span class="line">    <span class="comment">//根据id存储缓存对象（缓存对象被装饰在了软引用中）</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setCache</span><span class="params">(String id, BigValue bigValue)</span> </span>&#123;</span><br><span class="line">        caches.put(id, <span class="keyword">new</span> SoftReference&lt;BigValue&gt;(bigValue));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//根据id获取缓存对象</span></span><br><span class="line">    <span class="function">BigValue <span class="title">getCache</span><span class="params">(String id)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//根据id，获取缓存对象的软引用</span></span><br><span class="line">        SoftReference&lt;BigValue&gt; softRef = caches.get(id);</span><br><span class="line">        <span class="keyword">return</span> softRef == <span class="keyword">null</span> ? <span class="keyword">null</span> : softRef.get();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>缓存与“限流”虽是不同的技术，但二者的使用思路基本一致：都是以请求的“时间线”为线索。在分析多级缓存时，应该分析请求路径中的每个阶段能否加入缓存、如何加入缓存、加入缓存带来的利弊该如何权衡。</p>
+<p>在设计多层限流、多级缓存时，切忌进行盲目的技术堆积，而要清晰认识每一级缓存的作用。对于动态请求来说，“ Redis 远程缓存”可以作为数据库的缓存，而 GuavaCache 等“服务器本地缓存”主要用于保护远程缓存（例如可以减少 Redis 失效造成的缓存雪崩等问题）。</p>
+<h2 id="缓存具体实现"><a href="#缓存具体实现" class="headerlink" title="缓存具体实现"></a>缓存具体实现</h2><p><strong>为了系统性能的提升</strong>，我们一般都会将数据放入缓存中，加速访问。而db承担<strong>数据落盘</strong>工作。</p>
+<p>高并发系统，缓存是必备。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">缓存的使用场景：</span><br><span class="line">一些固定的数据，不太变化的数据，高频访问的数据（基本不变），变化频率低的都可以入缓存，加速系统的访问。 </span><br><span class="line">缓存的目的：提高系统查询效率，提供性能</span><br><span class="line">1）、将菜单缓存起来，以后查询直接去缓存中拿即可；</span><br><span class="line">设计模式：模板模式：</span><br><span class="line"> 操作xxx都有对应的xxxTemplate；</span><br><span class="line"> JdbcTemplate、RestTemplate、RedisTemplate、MongoTemplate</span><br><span class="line"></span><br><span class="line"> RedisTemplate&lt;Object, Object&gt;；  k-v；</span><br><span class="line"> v有五种类型、String、V</span><br><span class="line"> StringRedisTemplate: k-v都是String的。</span><br><span class="line"></span><br><span class="line"> 引入一个场景，猜这个场景的xxxAutoConfiguration，帮我们注入能操作这个技术的组件，这个场景的配置信息都在xxxProperties中说明了(prefix &#x3D; spring.redis&quot;)使用哪种前缀配置</span><br><span class="line"></span><br><span class="line"> 2)、整合Redis两大步</span><br><span class="line">   1）、导入starter-data-redis</span><br><span class="line">   2）、application.properties配置与 spring.redis相关的</span><br><span class="line">   注意：</span><br><span class="line">      RedisTemplate；存数据默认使用jdk的方式序列化存过去。</span><br><span class="line">      我们推荐都应该存成json；</span><br><span class="line">      做法：</span><br><span class="line">          将默认的序列化器改为json的</span><br></pre></td></tr></table></figure>
+
+<p>spring-boot把每个功能都抽取成场景启动器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-data-redis&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>会有RedisAutoConfiguration,往容器中注入template</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@ConditionalOnClass(&#123;RedisOperations.class&#125;)</span><br><span class="line">@EnableConfigurationProperties(&#123;RedisProperties.class&#125;)</span><br><span class="line">@Import(&#123;LettuceConnectionConfiguration.class, JedisConnectionConfiguration.class&#125;)</span><br><span class="line">public class RedisAutoConfiguration &#123;</span><br><span class="line">    public RedisAutoConfiguration() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    @ConditionalOnMissingBean(</span><br><span class="line">        name &#x3D; &#123;&quot;redisTemplate&quot;&#125;</span><br><span class="line">    )</span><br><span class="line">    public RedisTemplate&lt;Object, Object&gt; redisTemplate(RedisConnectionFactory redisConnectionFactory) throws UnknownHostException &#123;</span><br><span class="line">        RedisTemplate&lt;Object, Object&gt; template &#x3D; new RedisTemplate();</span><br><span class="line">        template.setConnectionFactory(redisConnectionFactory);</span><br><span class="line">        return template;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    @ConditionalOnMissingBean</span><br><span class="line">    public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory) throws UnknownHostException &#123;</span><br><span class="line">        StringRedisTemplate template &#x3D; new StringRedisTemplate();</span><br><span class="line">        template.setConnectionFactory(redisConnectionFactory);</span><br><span class="line">        return template;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;**</span><br><span class="line"> * 只需要自己创建出自己满意的序列化器放入容器中即可</span><br><span class="line"> *&#x2F;</span><br><span class="line"> &#x2F;&#x2F;默认的RedisTemplate；存数据默认使用jdk的方式序列化存过去。</span><br><span class="line">      我们推荐都应该存成json；（方便阅读）</span><br><span class="line">      做法：</span><br><span class="line">         将默认的序列化器改为json的</span><br><span class="line">         &#x2F;&#x2F;@Bean标注的所有方法都会在IOC容器自己获取</span><br><span class="line">@Configuration</span><br><span class="line">public class PmsRedisConfig &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * jedis</span><br><span class="line">     * @param redisConnectionFactory</span><br><span class="line">     * @return</span><br><span class="line">     * @throws UnknownHostException</span><br><span class="line">     *&#x2F;</span><br><span class="line">    @Bean(&quot;redisTemplate&quot;)</span><br><span class="line">    public RedisTemplate&lt;Object, Object&gt; redisTemplate(</span><br><span class="line">            RedisConnectionFactory redisConnectionFactory) throws UnknownHostException &#123;</span><br><span class="line">        RedisTemplate&lt;Object, Object&gt; template &#x3D; new RedisTemplate&lt;&gt;();</span><br><span class="line">        template.setConnectionFactory(redisConnectionFactory);</span><br><span class="line">        &#x2F;&#x2F;修改默认的序列化方式</span><br><span class="line">        template.setDefaultSerializer(new GenericJackson2JsonRedisSerializer());</span><br><span class="line">        return template;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%887%EF%BC%89redis%E7%BC%93%E5%AD%98/" data-id="ckib1p4c8000h40u16dgsde5z" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-学习笔记（6）数据表设计" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%886%EF%BC%89%E6%95%B0%E6%8D%AE%E8%A1%A8%E8%AE%BE%E8%AE%A1/" class="article-date">
+  <time datetime="2020-12-05T01:42:37.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%886%EF%BC%89%E6%95%B0%E6%8D%AE%E8%A1%A8%E8%AE%BE%E8%AE%A1/">学习笔记（6）数据表设计</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+
+<h2 id="商品数据模型"><a href="#商品数据模型" class="headerlink" title="商品数据模型"></a>商品数据模型</h2><p>sku （ Stock Keeping Unit）：库存量单位，即库存进出计量的基本单元，可以是件，盒，托盘单位。sku这是对于大型连锁超市DC（配送中心）物流管理的一个必要方法。现在已经被引申为产品统一编号的简称，每种产品均对应唯一的sku号。</p>
+<p>spu（Standard Product Unit）：标准化产品单元，是商品信息聚合的最小单位，是一组可复用，易检索的标准化信息的集合，该集合描述了一个产品的特性。</p>
+<p>spu属性是公共属性，sku属性也称核心属性，即销售属性。同一件商品（spu），共享相同的详情页，只是sku属性不一样。商品有非常多属性，但是同一个类别下的所有商品具有的属性是一样的，只是属性的值不一样</p>
+<p>平台分类属性：只要三级分类一样，大家都具有一样的属性。</p>
+<p>平台分类属性 商品的规则参数（一部分可以用来属性）筛选属性</p>
+<p>sku属性决定了每一种的库存和售价，决定卖价的是销售属性。</p>
+<h2 id="三级分类"><a href="#三级分类" class="headerlink" title="三级分类"></a>三级分类</h2><p>每个商品肯定属于哪个分类下的，每个分类下可以按照某种属性的名-值进行筛选，提供筛选的其实就是商品的参数。</p>
+<p>pms_product_catagoy:商品的分类，就是三级分类菜单</p>
+<p><img src="https://img-blog.csdnimg.cn/20201202095451386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>pms_product_attribute属性表：保存了当前平台的所以属性，以及属性可供选择的值</p>
+<p><img src="https://img-blog.csdnimg.cn/20201202095524299.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>pms_product_attribute_category 属性分类表</p>
+<p><img src="https://img-blog.csdnimg.cn/20201202095545421.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>attribute—count代表销售属性的数量，param_count代表通用的公共参数数量</p>
+<p>属性自己划分类没有和三级分类关联起来，好处：把属性划分的更加细分，可以自己规定好多的属性分类，不被三级分类局限。就是说三级分类规定了苹果有XX属性，但是这样做后，自己还能加属性，不被其局限。</p>
+<p>不关联三级分类，提升灵活性，但代价就是检索难度大。</p>
+<p>我们为属性分了类，name-手机/配件</p>
+<p>pms_product_attribute_value:商品属性值表</p>
+<p><img src="https://img-blog.csdnimg.cn/20201202095615357.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>pms_product_category—attribute_relation: 属性分类关联表</p>
+<p><img src="https://img-blog.csdnimg.cn/20201202095637277.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="查询所有一级分类及子分类-有难度"><a href="#查询所有一级分类及子分类-有难度" class="headerlink" title="查询所有一级分类及子分类[有难度]"></a>查询所有一级分类及子分类[有难度]</h2><p>一级菜单</p>
+<p><img src="https://img-blog.csdnimg.cn/20201202095703504.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>二级菜单</p>
+<p><img src="https://img-blog.csdnimg.cn/20201202095723571.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>三级菜单</p>
+<p><img src="https://img-blog.csdnimg.cn/20201202095754677.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>若先查一级菜单，每个菜单在把下级菜单查出来，一封装，这样需要写三种查询，麻烦，还得组合</p>
+<p>用mp直接在xml文件中写sql，并组合好</p>
+<p><img src="https://img-blog.csdnimg.cn/20201202095817103.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class PmsProductCategoryWithChildrenItem extends ProductCategory  implements Serializable &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    private List&lt;ProductCategory&gt; children;</span><br><span class="line"></span><br><span class="line">&#125;&#x2F;&#x2F;处理继承ProductCategory,还有一个该类的属性，每级菜单都是一样的</span><br><span class="line">gc.setBaseResultMap(true);&#x2F;&#x2F;生成每个xml的baseResultMap</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201202095842452.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>MYBATIS的递归</p>
+<p>说明：1级菜单的0号查询出后，查询二级菜单的1号，再查询三级菜单的7号，然后二级菜单的8号，以此类推查完全部数据。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201202095927362.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201202095936649.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201202095945421.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%886%EF%BC%89%E6%95%B0%E6%8D%AE%E8%A1%A8%E8%AE%BE%E8%AE%A1/" data-id="ckib1p4c7000f40u12gsoa871" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-学习笔记（5）品牌查询实现" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%885%EF%BC%89%E5%93%81%E7%89%8C%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0/" class="article-date">
+  <time datetime="2020-12-05T01:41:55.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%885%EF%BC%89%E5%93%81%E7%89%8C%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0/">学习笔记（5）品牌查询实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+
+<h2 id="品牌查询"><a href="#品牌查询" class="headerlink" title="品牌查询"></a>品牌查询</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">@Slf4j</span><br><span class="line">@Service</span><br><span class="line">@Component</span><br><span class="line">public class BrandServiceImpl extends ServiceImpl&lt;BrandMapper, Brand&gt; implements BrandService &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    BrandMapper brandMapper;</span><br><span class="line">    @Override</span><br><span class="line">    public PageInfoVo brandPageInfo(String keyword, Integer pageNum, Integer pageSize) &#123;</span><br><span class="line">        QueryWrapper&lt;Brand&gt; name &#x3D; null;</span><br><span class="line">        &#x2F;&#x2F;自动拼%</span><br><span class="line">        if (!StringUtils.isEmpty(keyword))&#123;</span><br><span class="line">           name &#x3D; new QueryWrapper&lt;Brand&gt;().like(&quot;name&quot;, keyword);</span><br><span class="line">        &#125;</span><br><span class="line">        new QueryWrapper&lt;Brand&gt;().like(&quot;name&quot;,keyword);</span><br><span class="line">        IPage&lt;Brand&gt; brandIPage &#x3D; brandMapper.selectPage(new Page&lt;Brand&gt;(pageNum.longValue(), pageSize.longValue()), name);</span><br><span class="line"></span><br><span class="line">        PageInfoVo pageInfoVo &#x3D; new PageInfoVo(brandIPage.getTotal(),</span><br><span class="line">                brandIPage.getPages(),</span><br><span class="line">                pageSize.longValue(),</span><br><span class="line">                brandIPage.getRecords(),</span><br><span class="line">                brandIPage.getCurrent());</span><br><span class="line">        return pageInfoVo;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;复杂查询，根据前端条件构造wrapper</span><br><span class="line">@Override</span><br><span class="line">public PageInfoVo productPageInfo(PmsProductQueryParam param) &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    QueryWrapper&lt;Product&gt; wrapper &#x3D; new QueryWrapper&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    if(param.getBrandId()!&#x3D;null)&#123;</span><br><span class="line">        &#x2F;&#x2F;前端传了</span><br><span class="line">        wrapper.eq(&quot;brand_id&quot;,param.getBrandId());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(!StringUtils.isEmpty(param.getKeyword()))&#123;</span><br><span class="line">        wrapper.like(&quot;name&quot;,param.getKeyword());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(param.getProductCategoryId()!&#x3D;null)&#123;</span><br><span class="line">        wrapper.eq(&quot;product_category_id&quot;,param.getProductCategoryId());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(!StringUtils.isEmpty(param.getProductSn()))&#123;</span><br><span class="line">        wrapper.like(&quot;product_sn&quot;,param.getProductSn());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(param.getPublishStatus()!&#x3D;null)&#123;</span><br><span class="line">        wrapper.eq(&quot;publish_status&quot;,param.getPublishStatus());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(param.getVerifyStatus()!&#x3D;null)&#123;</span><br><span class="line">        wrapper.eq(&quot;verify_status&quot;,param.getVerifyStatus());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    IPage&lt;Product&gt; page &#x3D; productMapper.selectPage(new Page&lt;Product&gt;(param.getPageNum(), param.getPageSize()), wrapper);</span><br><span class="line"></span><br><span class="line">    PageInfoVo pageInfoVo &#x3D; new PageInfoVo(page.getTotal(),page.getPages(),param.getPageSize(),</span><br><span class="line">            page.getRecords(),page.getCurrent());</span><br><span class="line">    return pageInfoVo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%885%EF%BC%89%E5%93%81%E7%89%8C%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0/" data-id="ckib1p4c8000g40u160iffpco" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-学习笔记（4）商品查询实现" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%884%EF%BC%89%E5%95%86%E5%93%81%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0/" class="article-date">
+  <time datetime="2020-12-05T01:40:27.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%884%EF%BC%89%E5%95%86%E5%93%81%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0/">学习笔记（4）商品查询实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+
+<h2 id="商品查询"><a href="#商品查询" class="headerlink" title="商品查询"></a>商品查询</h2><p>分页处理：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">@AllArgsConstructor</span><br><span class="line">@NoArgsConstructor</span><br><span class="line">@ApiModel</span><br><span class="line">@Data</span><br><span class="line">public class PageInfoVo implements Serializable &#123;</span><br><span class="line"></span><br><span class="line">    @ApiModelProperty(&quot;总记录数&quot;)</span><br><span class="line">    private Long total;</span><br><span class="line"></span><br><span class="line">    @ApiModelProperty(&quot;总页码&quot;)</span><br><span class="line">    private Long totalPage;</span><br><span class="line"></span><br><span class="line">    @ApiModelProperty(&quot;每页显示的记录数&quot;)</span><br><span class="line">    private Long pageSize;</span><br><span class="line"></span><br><span class="line">    @ApiModelProperty(&quot;分页查出的数据&quot;)</span><br><span class="line">    private List&lt;? extends  Object&gt; list;</span><br><span class="line"></span><br><span class="line">    @ApiModelProperty(&quot;当前页的页码&quot;)</span><br><span class="line">    private Long pageNum;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public static PageInfoVo getVo(IPage iPage,Long size)&#123;</span><br><span class="line">        return new PageInfoVo(iPage.getTotal(),iPage.getPages(),size,iPage.getRecords(),</span><br><span class="line">                iPage.getCurrent());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;&#x2F;&#x2F;分页数据</span><br></pre></td></tr></table></figure>
+
+<p>gmall-pms: pms-product表</p>
+<p><img src="https://img-blog.csdnimg.cn/20201202095228446.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">@ApiModelProperty(&quot;分页查出的数据&quot;)</span><br><span class="line">private List&lt;? extends  Object&gt; list;&#x2F;&#x2F;？代表任意类型，只要是Object旗下</span><br><span class="line">@Data</span><br><span class="line">public class PmsProductQueryParam  implements Serializable &#123;</span><br><span class="line">    @ApiModelProperty(&quot;上架状态&quot;)</span><br><span class="line">    private Integer publishStatus;</span><br><span class="line">    @ApiModelProperty(&quot;审核状态&quot;)</span><br><span class="line">    private Integer verifyStatus;</span><br><span class="line">    @ApiModelProperty(&quot;商品名称模糊关键字&quot;)</span><br><span class="line">    private String keyword;</span><br><span class="line">    @ApiModelProperty(&quot;商品货号&quot;)</span><br><span class="line">    private String productSn;</span><br><span class="line">    @ApiModelProperty(&quot;商品分类编号&quot;)</span><br><span class="line">    private Long productCategoryId;</span><br><span class="line">    @ApiModelProperty(&quot;商品品牌编号&quot;)</span><br><span class="line">    private Long brandId;</span><br><span class="line"></span><br><span class="line">    private Long pageSize &#x3D; 5L;</span><br><span class="line">    private Long pageNum &#x3D; 1L;</span><br><span class="line"></span><br><span class="line">&#125;&#x2F;&#x2F;所有vo必须序列化</span><br><span class="line">public class CommonResult &#123;</span><br><span class="line">    &#x2F;&#x2F;操作成功</span><br><span class="line">    public static final int SUCCESS &#x3D; 200;</span><br><span class="line">    &#x2F;&#x2F;操作失败</span><br><span class="line">    public static final int FAILED &#x3D; 500;</span><br><span class="line">    &#x2F;&#x2F;参数校验失败</span><br><span class="line">    public static final int VALIDATE_FAILED &#x3D; 404;</span><br><span class="line">    &#x2F;&#x2F;未认证</span><br><span class="line">    public static final int UNAUTHORIZED &#x3D; 401;</span><br><span class="line">    &#x2F;&#x2F;未授权</span><br><span class="line">    public static final int  FORBIDDEN &#x3D; 403;</span><br><span class="line">    private int code;</span><br><span class="line">    private String message;</span><br><span class="line">    private Object data;&#x2F;&#x2F;to写成json，不需要交互，不必序列化</span><br><span class="line">@Configuration</span><br><span class="line">public class PmsDataSourceConfig &#123;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public DataSource dataSource() throws IOException, SQLException &#123;</span><br><span class="line"></span><br><span class="line">        File file &#x3D; ResourceUtils.getFile(&quot;classpath:sharding-jdbc.yml&quot;);</span><br><span class="line">        DataSource dataSource &#x3D; MasterSlaveDataSourceFactory.createDataSource(file);</span><br><span class="line">        return dataSource;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 分页插件</span><br><span class="line">     *&#x2F;</span><br><span class="line">    @Bean</span><br><span class="line">    public PaginationInterceptor paginationInterceptor() &#123;</span><br><span class="line">        return new PaginationInterceptor();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;&#x2F;&#x2F;mp需要导入分页插件</span><br></pre></td></tr></table></figure>
+
+<h2 id="AOP切面"><a href="#AOP切面" class="headerlink" title="AOP切面"></a>AOP切面</h2><h3 id="后台统一数据校验"><a href="#后台统一数据校验" class="headerlink" title="后台统一数据校验"></a>后台统一数据校验</h3><p><img src="https://img-blog.csdnimg.cn/20201202095258562.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">1）、注册成功返回用户的所有信息；&#123;code,message,data:&#123;username,icon,email&#125;&#125;</span><br><span class="line">2）、数据校验失败:&#123;code,message,data&#125;</span><br><span class="line">@param umsAdminParam</span><br><span class="line">@param result</span><br><span class="line">@return</span><br><span class="line">*&#x2F;</span><br><span class="line">&#x2F;&#x2F;@Valid声明需要校验</span><br><span class="line">public Object register(@Valid @RequestBody UmsAdminParam umsAdminParam, BindingResult result) &#123;</span><br><span class="line">        Admin admin &#x3D; null;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;TODO 完成注册功能</span><br><span class="line">&#x2F;&#x2F;        int errorCount &#x3D; result.getErrorCount();</span><br><span class="line">&#x2F;&#x2F;        if(errorCount&gt;0)&#123;</span><br><span class="line">&#x2F;&#x2F;            List&lt;FieldError&gt; fieldErrors &#x3D; result.getFieldErrors();</span><br><span class="line">&#x2F;&#x2F;            fieldErrors.forEach((fieldError)-&gt;&#123;</span><br><span class="line">&#x2F;&#x2F;                String field &#x3D; fieldError.getField();</span><br><span class="line">&#x2F;&#x2F;                log.debug(&quot;属性：&#123;&#125;，传来的值是：&#123;&#125;，校验出错。出错的提示消息：&#123;&#125;&quot;,</span><br><span class="line">&#x2F;&#x2F;                        field,fieldError.getRejectedValue(),fieldError.getDefaultMessage());</span><br><span class="line">&#x2F;&#x2F;            &#125;);</span><br><span class="line">&#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;            return new CommonResult().validateFailed(result);</span><br><span class="line">&#x2F;&#x2F;        &#125;else &#123;</span><br><span class="line">&#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;        &#125;</span><br><span class="line">        log.debug(&quot;需要注册的用户详情：&#123;&#125;&quot;,umsAdminParam);</span><br><span class="line">  &#x2F;&#x2F;      int i &#x3D; 10&#x2F;0;</span><br><span class="line">        return new CommonResult().success(admin);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="统一AOP处理数据检验错误"><a href="#统一AOP处理数据检验错误" class="headerlink" title="统一AOP处理数据检验错误"></a>统一AOP处理数据检验错误</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">@Around(&quot;execution(* com.atguigu.gmall.admin..*Controller.*(..))&quot;)</span><br><span class="line">admin下的任意多层包，下的任意类controller的任意方法</span><br><span class="line">切面如何编写</span><br><span class="line">  1、导入切面场景</span><br><span class="line">         &lt;dependency&gt;</span><br><span class="line">              &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">              &lt;artifactId&gt;spring-boot-starter-aop&lt;&#x2F;artifactId&gt;</span><br><span class="line">          &lt;&#x2F;dependency&gt;</span><br><span class="line">  2、编写切面</span><br><span class="line">       1）、@Aspect</span><br><span class="line">       2）、切入点表达式</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">       3）、通知</span><br><span class="line">              前置通知：方法执行之前触发</span><br><span class="line">              后置通知：方法执行之后触发</span><br><span class="line">              返回通知：方法正常返回之后触发</span><br><span class="line">              异常通知：方法出现异常触发</span><br><span class="line"> </span><br><span class="line">          正常执行：   前置通知&#x3D;&#x3D;&gt;返回通知&#x3D;&#x3D;&gt;后置通知</span><br><span class="line">          异常执行：   前置通知&#x3D;&#x3D;&gt;异常通知&#x3D;&#x3D;&gt;后置通知</span><br><span class="line"> </span><br><span class="line">              环绕通知：4合1；拦截方法的执行</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;利用aop完成统一的数据校验，数据校验出错就返回给前端错误提示</span><br><span class="line">@Slf4j</span><br><span class="line">@Aspect</span><br><span class="line">@Component</span><br><span class="line">public class DataVaildAspect &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 目标方法的异常，一般都需要再次抛出去。让别人感知</span><br><span class="line">     * @param point</span><br><span class="line">     * @return</span><br><span class="line">     * @throws Throwable</span><br><span class="line">     *&#x2F;</span><br><span class="line">    @Around(&quot;execution(* com.atguigu.gmall.admin..*Controller.*(..))&quot;)</span><br><span class="line">    public Object validAround(ProceedingJoinPoint point) throws Throwable &#123;</span><br><span class="line">        Object proceed &#x3D; null;</span><br><span class="line"></span><br><span class="line">        log.debug(&quot;校验切面介入工作....&quot;);</span><br><span class="line">        Object[] args &#x3D; point.getArgs();</span><br><span class="line">        for (Object obj:args)&#123;</span><br><span class="line">            if(obj instanceof BindingResult)&#123;</span><br><span class="line">                BindingResult r &#x3D; (BindingResult) obj;</span><br><span class="line">                if(r.getErrorCount()&gt;0)&#123;</span><br><span class="line">                    &#x2F;&#x2F;框架自动校验检测到错了</span><br><span class="line">                    return new CommonResult().validateFailed(r);</span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;就是我们反射的  method.invoke();</span><br><span class="line">        proceed &#x3D; point.proceed(point.getArgs());</span><br><span class="line">        log.debug(&quot;校验切面将目标方法已经放行....&#123;&#125;&quot;,proceed);</span><br><span class="line"></span><br><span class="line">        return proceed;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="统一异常处理"><a href="#统一异常处理" class="headerlink" title="统一异常处理"></a>统一异常处理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 统一处理所有异常，给前端返回500的json</span><br><span class="line"> *</span><br><span class="line"> * 当我们编写环绕通知的时候，目标方法出现的异常一定要再次抛出去</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Slf4j</span><br><span class="line"></span><br><span class="line">@RestControllerAdvice</span><br><span class="line">public class GlobalExceptionHandler &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @ExceptionHandler(value &#x3D; &#123;ArithmeticException.class&#125;)</span><br><span class="line">    public Object handlerException(Exception exception)&#123;</span><br><span class="line">        log.error(&quot;系统全局异常感知，信息：&#123;&#125;&quot;,exception.getStackTrace());</span><br><span class="line">        return new CommonResult().validateFailed(&quot;数学没学好&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @ExceptionHandler(value &#x3D; &#123;NullPointerException.class&#125;)</span><br><span class="line">    public Object handlerException02(Exception exception)&#123;</span><br><span class="line">        log.error(&quot;系统出现异常感知，信息：&#123;&#125;&quot;,exception.getMessage());</span><br><span class="line">        return new CommonResult().validateFailed(&quot;空指针了...&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%884%EF%BC%89%E5%95%86%E5%93%81%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0/" data-id="ckib1p4c7000e40u19qvh2riq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-学习笔记（3）登录实现" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89%E7%99%BB%E5%BD%95%E5%AE%9E%E7%8E%B0/" class="article-date">
+  <time datetime="2020-12-05T01:30:00.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89%E7%99%BB%E5%BD%95%E5%AE%9E%E7%8E%B0/">学习笔记（3）登录实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+
+<h2 id="跨域请求"><a href="#跨域请求" class="headerlink" title="跨域请求"></a>跨域请求</h2><p>invalid CORS：非法跨域请求。@CrossOrigin解决</p>
+<p>所谓跨域请求就是指：当前发起请求的域与该请求所指向的资源所在的域不一致(协议、域名、端口，任意一个不一样都会导致。</p>
+<p>浏览器要设置同源策略，正是因为浏览器要出于安全考虑。如果缺少了同源策略，浏览器很容易受到<strong>XSS</strong>和<strong>CSRF</strong>等攻击。(<code>XSS</code>与<code>CSRF</code>可以单独成为一个额外的知识点) 此时会导致一个域名下网页的操作就可以直接拿到另一个非同域名下网页的任何信息,或者一个网页可以随意请求到不同域名服务器下的接口数据。</p>
+<p>同源策略是一种约定,这是浏览器核心的安全功能点之一。所谓的同源策略指的是【<strong>协议</strong> + <strong>域名</strong> + <strong>端口</strong>】三者相同,如果两个相同的域名指向同一个<code>ip</code>地址，也是非同源的情况。同时地址印射对应的<code>ip</code>两者也是非同源情况。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/7c5fee7529906a85647c8853064a0dc3.png" alt="img"></p>
+<p>跨域请求为什么出现在前端中的原因：</p>
+<ul>
+<li>既然同源策略是浏览器的核心基础安全策略，那为什么我们在进行前端开发特别是Ajax调用时还要进行跨域请求呢?同源策略是用来防御来自非法的攻击，但我们不能因为防御非法的攻击就将所有的跨域都拦截掉。</li>
+<li>在现代前端开发中，我们经常需要调用第三方的服务接口(例如mock server、fake api)，随着专业化分工的出现有很多专业的信息服务提供商为前端开发者提供各类接口，这种情况下就需要进行跨域请求(这类前端接口服务很多是采用的cors方式来解决跨域问题的，下文会详细介绍)。</li>
+<li>还有一类情况是在前后端分离的项目中，前端后端分属于不同的服务跨域问题在采用这种架构的时候就存在。而且现在很多项目都采用这种前后分离的方式，这类项目很多是会采用反向代理的方式来解决跨域问题。</li>
+</ul>
+<h2 id="登录流程"><a href="#登录流程" class="headerlink" title="登录流程"></a>登录流程</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@RequestBody UmsAdminLoginParam umsAdminLoginParam</span><br><span class="line">前端传来数据进行封装</span><br></pre></td></tr></table></figure>
+
+<p>登录成功后返回token，用commomResult封装</p>
+<p>查询用户信息的方法调用流程，AdminServiceImpl -&gt; AdminMapper -&gt;Admin</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">QueryWrapper&lt;Admin&gt; wrapper &#x3D; new QueryWrapper&lt;Admin&gt;().eq(&quot;username&quot;, username).eq(&quot;password&quot;, s);</span><br><span class="line"> QueryWrapper是mybatis的查询条件</span><br><span class="line">* 后台用户管理</span><br><span class="line">* SpringMVC支持使用 【JSR303】 方式进行校验</span><br><span class="line">* 1、springboot默认导第三方的校验框架hibernate-validator</span><br><span class="line">*</span><br><span class="line">* 使用JSR303的三大步</span><br><span class="line">* 1）、给需要校验数据的javaBean上标注校验注解；</span><br><span class="line">* 2）、告诉SpringBoot，这个需要校验；@Valid</span><br><span class="line">*      springmvc进入方法之前，确定参数值的时候就会进行校验，如果校验出错，直接返回错误，不执行controller代码</span><br><span class="line">* 3）、如何感知校验成功还是失败；</span><br><span class="line">*      只需要给开启了校验的javaBean参数后面，紧跟一个BindingResult对象就可以</span><br><span class="line">gmall.jwt.tokenHeader&#x3D;Authorization</span><br><span class="line">gmall.jwt.secret&#x3D;atguigu_2019</span><br><span class="line">gmall.jwt.expiration&#x3D;604800</span><br><span class="line">gmall.jwt.tokenHead&#x3D;Bearer&#x2F;&#x2F;带来个前缀</span><br><span class="line"></span><br><span class="line">@ApiOperation(value &#x3D; &quot;获取当前登录用户信息&quot;)</span><br><span class="line">    @RequestMapping(value &#x3D; &quot;&#x2F;info&quot;, method &#x3D; RequestMethod.GET)</span><br><span class="line">    @ResponseBody</span><br><span class="line">    public Object getAdminInfo(HttpServletRequest request) &#123;</span><br><span class="line">        String oldToken &#x3D; request.getHeader(tokenHeader);</span><br><span class="line"></span><br><span class="line">        String userName &#x3D; jwtTokenUtil.getUserNameFromToken(oldToken.substring(tokenHead.length()));&#x2F;&#x2F;所以截取前缀</span><br><span class="line">        &#x2F;&#x2F;查询用户的头像</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;1、getOne是mybatis-plus生成的，而且带了泛型的。</span><br><span class="line">        &#x2F;&#x2F;2、dubbo没办法直接调用mp中带泛型的service；</span><br><span class="line">        &#x2F;&#x2F;3、实战经验：</span><br><span class="line">        &#x2F;&#x2F;  mp自动生成有可能用兼容问题，最好不要远程调用；</span><br><span class="line">        &#x2F;&#x2F;</span><br><span class="line">      &#x2F;&#x2F; Admin umsAdmin &#x3D; adminService.getOne(new QueryWrapper&lt;Admin&gt;().eq(&quot;username&quot;, userName));</span><br><span class="line">        Admin umsAdmin &#x3D; adminService.getUserInfo(userName);</span><br><span class="line">        Map&lt;String, Object&gt; data &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">        data.put(&quot;username&quot;, umsAdmin.getUsername());</span><br><span class="line">        data.put(&quot;roles&quot;, new String[]&#123;&quot;TEST&quot;&#125;);</span><br><span class="line">        data.put(&quot;icon&quot;, umsAdmin.getIcon());</span><br><span class="line">        return new CommonResult().success(data);</span><br><span class="line">    &#125;</span><br><span class="line">&#x2F;**</span><br><span class="line"> * 登录成功以后用户的信息以jwt令牌的方式返回给前端</span><br><span class="line"> * @param umsAdminLoginParam</span><br><span class="line"> * @param result</span><br><span class="line"> * @return</span><br><span class="line"> *</span><br><span class="line"> * 1、如果前端发过来的是json字符串，要封装对象。</span><br><span class="line"> * public Object login(@RequestBody UmsAdminLoginParam umsAdminLoginParam)</span><br><span class="line"> * 2、如果前端发过来的是k&#x3D;v&amp;k&#x3D;v符串，要封装对象。</span><br><span class="line"> * public Object login(UmsAdminLoginParam umsAdminLoginParam)</span><br><span class="line"> *</span><br><span class="line"> *&#x2F;</span><br><span class="line">@ApiOperation(value &#x3D; &quot;登录以后返回token&quot;)</span><br><span class="line">@PostMapping(value &#x3D; &quot;&#x2F;login&quot;)</span><br><span class="line">public Object login(@RequestBody UmsAdminLoginParam umsAdminLoginParam, BindingResult result) &#123;</span><br><span class="line">    &#x2F;&#x2F;去数据库登陆</span><br><span class="line">    Admin admin &#x3D; adminService.login(umsAdminLoginParam.getUsername(), umsAdminLoginParam.getPassword());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;登陆成功生成token，此token携带基本用户信息，以后就不用去数据库了</span><br><span class="line">    String token &#x3D; jwtTokenUtil.generateToken(admin);</span><br><span class="line">    if (token &#x3D;&#x3D; null) &#123;</span><br><span class="line">        return new CommonResult().validateFailed(&quot;用户名或密码错误&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    Map&lt;String, String&gt; tokenMap &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">    tokenMap.put(&quot;token&quot;, token);</span><br><span class="line">    tokenMap.put(&quot;tokenHead&quot;, tokenHead);</span><br><span class="line">    return new CommonResult().success(tokenMap);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89%E7%99%BB%E5%BD%95%E5%AE%9E%E7%8E%B0/" data-id="ckib1p4c6000d40u1hqhkgtbk" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-学习笔记（2）基本配置以及高性能高可用数据库设计" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%8F%AF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" class="article-date">
+  <time datetime="2020-12-05T00:57:22.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%8F%AF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/">学习笔记（2）基本配置以及高性能高可用数据库设计</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>项目涉及的微服务以及数据库基本结构</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%8F%AF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%8F%AF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" data-id="ckib1p4c5000c40u107ct7qel" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8822%EF%BC%89%E8%AE%A2%E5%8D%95%E6%9C%8D%E5%8A%A1/">学习笔记（22）订单服务</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8821%EF%BC%89%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">学习笔记（21）消息队列</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8820%EF%BC%89%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">学习笔记（20）分布式事务</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8819%EF%BC%89%E8%B4%AD%E7%89%A9%E8%BD%A6/">学习笔记（19）购物车&#34;</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8818%EF%BC%89%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/">学习笔记（18）单点登录</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>学习笔记（19）购物车&#34; | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="购物车有两种情况：  在线购物车；  离线购物车； 离线购物车： 只要每次看购物车。都有一个user-key&#x3D;uuid；如果这个user-key丢了，购物车就没了。 如果我们要看购物车肯定会带上这个user-key的cookie；如果有就用自带的，没有就新建一个以后用这个。 登录以后离线的和在线的合并了，并且清空了离线购物车里面的数据。 京东怎么做购物车？  购物车有一个cookie对应的ke">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习笔记（19）购物车&quot;">
+<meta property="og:url" content="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8819%EF%BC%89%E8%B4%AD%E7%89%A9%E8%BD%A6/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="购物车有两种情况：  在线购物车；  离线购物车； 离线购物车： 只要每次看购物车。都有一个user-key&#x3D;uuid；如果这个user-key丢了，购物车就没了。 如果我们要看购物车肯定会带上这个user-key的cookie；如果有就用自带的，没有就新建一个以后用这个。 登录以后离线的和在线的合并了，并且清空了离线购物车里面的数据。 京东怎么做购物车？  购物车有一个cookie对应的ke">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201203161817958.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201203161828636.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201203161937265.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201203162010669.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201203162333555.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201203162342941.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201203162351248.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201203162359503.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201203162408441.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201203162418336.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201203162426234.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201203162436585.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201203162607217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201203162616532.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201203162624645.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201203162632316.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2020-12-05T01:52:40.000Z">
+<meta property="article:modified_time" content="2020-12-05T01:53:06.676Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201203161817958.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-学习笔记（19）购物车" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8819%EF%BC%89%E8%B4%AD%E7%89%A9%E8%BD%A6/" class="article-date">
+  <time datetime="2020-12-05T01:52:40.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      学习笔记（19）购物车&#34;
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+
+<p>购物车有两种情况：</p>
+<p> 在线购物车；</p>
+<p> 离线购物车；</p>
+<p>离线购物车：</p>
+<p>只要每次看购物车。都有一个<strong>user-key=uuid</strong>；如果这个user-key丢了，购物车就没了。</p>
+<p>如果我们要看购物车肯定会带上这个user-key的cookie；如果有就用自带的，没有就新建一个以后用这个。</p>
+<p>登录以后离线的和在线的合并了，并且清空了离线购物车里面的数据。</p>
+<p>京东怎么做购物车？</p>
+<p> 购物车有一个cookie对应的key关联，即使没有登录也有，登录以后进行购物车合并，合并完成后删除购物车数据；该系统也设计离线在线购物车。</p>
+<p>离线购物车：永远用 cart-key=uuid；购物车数据都在redis中提升系统的性能。cart:temp: uuid；</p>
+<p>在线购物车：cart:1={};放在redis中；cart:user:1；</p>
+<p><img src="https://img-blog.csdnimg.cn/20201203161817958.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20201203161828636.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>抽取购物项：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">private BigDecimal totalPrice;&#x2F;&#x2F;当前购物项总价</span><br><span class="line">&#x2F;&#x2F;算价格用BigDecimal ，否则带小数的运算有问题</span><br></pre></td></tr></table></figure>
+
+<p>用hash存储，key为skuid，value为json字符串。</p>
+<p>想改1号商品数量，拿Cart:user：1 查到整个购物车，然后get出1号商品，得到json字符串，反序列化成CartItem,把CartItem中的数量改成5，然后json重新覆盖。</p>
+<p>用k-v最大的另一个好处，可以多加一个字段checked ，value是数组，这样不用遍历购物车就可获取选中商品。</p>
+<p>最终购物车的结构：</p>
+<p><img src="https://img-blog.csdnimg.cn/20201203161937265.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>reddison 的分布式集合：</p>
+<p>做分布式一定要序列化接口</p>
+<p>测试Reddsion：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void userRedissonMap()&#123;</span><br><span class="line">    RMap&lt;String, String&gt; cart &#x3D; redissonClient.getMap(&quot;cart&quot;);</span><br><span class="line">    CartItem item &#x3D; new CartItem();</span><br><span class="line">    item.setPrice(new BigDecimal(&quot;12.98&quot;));</span><br><span class="line">    item.setSkuId(1L);</span><br><span class="line">    item.setCount(1);</span><br><span class="line">    String s &#x3D; JSON.toJSONString(item);</span><br><span class="line">    cart.put(&quot;2&quot;,s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试后redis如下：</p>
+<p><img src="https://img-blog.csdnimg.cn/20201203162010669.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 根据accessToken查询用户信息</span><br><span class="line"> *&#x2F;</span><br><span class="line">public Member getMemberByAccessToken(String accessToken)&#123;</span><br><span class="line">    String userJson &#x3D; redisTemplate.opsForValue().get(SysCacheConstant.LOGIN_MEMBER + accessToken);</span><br><span class="line">    return JSON.parseObject(userJson, Member.class);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;系统中存用户的json</span><br><span class="line">&#x2F;&#x2F;经常要用，封装成组件</span><br><span class="line">@Component</span><br><span class="line">public class MemberComponent &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    StringRedisTemplate redisTemplate;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public UserCartKey getCartKey(String accessToken, String cartKey)&#123;</span><br><span class="line">        UserCartKey userCartKey &#x3D; new UserCartKey();</span><br><span class="line">        Member member &#x3D; null;</span><br><span class="line">        if(!StringUtils.isEmpty(accessToken))&#123;</span><br><span class="line">            member &#x3D; getMemberByAccessToken(accessToken);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if(member!&#x3D;null)&#123;</span><br><span class="line">            &#x2F;&#x2F;获取到了在线用户；用户登录用这个</span><br><span class="line">            userCartKey.setLogin(true);</span><br><span class="line">            userCartKey.setUserId(member.getId());</span><br><span class="line">            userCartKey.setFinalCartKey(CartConstant.USER_CART_KEY_PREFIX+member.getId());</span><br><span class="line">            return userCartKey;</span><br><span class="line">        &#125;else if(!StringUtils.isEmpty(cartKey))&#123;</span><br><span class="line">            &#x2F;&#x2F;用户有临时的用这个</span><br><span class="line">            userCartKey.setLogin(false);</span><br><span class="line">            userCartKey.setFinalCartKey(CartConstant.TEMP_CART_KEY_PREFIX+cartKey);</span><br><span class="line">            return userCartKey;</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            &#x2F;&#x2F;用户既没有登录也没有零时购物车</span><br><span class="line">            String replace &#x3D; UUID.randomUUID().toString().replace(&quot;-&quot;, &quot;&quot;);</span><br><span class="line">            userCartKey.setLogin(false);</span><br><span class="line">            userCartKey.setFinalCartKey(CartConstant.TEMP_CART_KEY_PREFIX+replace);</span><br><span class="line">            userCartKey.setTempCartKey(replace);</span><br><span class="line"></span><br><span class="line">            return userCartKey;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 根据accessToken查询用户信息</span><br><span class="line">     *&#x2F;</span><br><span class="line">    public Member getMemberByAccessToken(String accessToken)&#123;</span><br><span class="line">        String userJson &#x3D; redisTemplate.opsForValue().get(SysCacheConstant.LOGIN_MEMBER + accessToken);</span><br><span class="line">        return JSON.parseObject(userJson, Member.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>几种购物车：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">String oldCartKey &#x3D; CartConstant.TEMP_CART_KEY_PREFIX+cartKey;</span><br><span class="line">String userCartKey &#x3D; CartConstant.USER_CART_KEY_PREFIX+id.toString();</span><br><span class="line">if(member!&#x3D;null)&#123;</span><br><span class="line">    &#x2F;&#x2F;获取到了在线用户；用户登录用这个</span><br><span class="line">    userCartKey.setLogin(true);</span><br><span class="line">    userCartKey.setUserId(member.getId());</span><br><span class="line">    userCartKey.setFinalCartKey(CartConstant.USER_CART_KEY_PREFIX+member.getId());</span><br><span class="line">    return userCartKey;</span><br><span class="line">&#125;else if(!StringUtils.isEmpty(cartKey))&#123;</span><br><span class="line">    &#x2F;&#x2F;用户有临时的用这个</span><br><span class="line">    userCartKey.setLogin(false);</span><br><span class="line">    userCartKey.setFinalCartKey(CartConstant.TEMP_CART_KEY_PREFIX+cartKey);</span><br><span class="line">    return userCartKey;</span><br><span class="line">&#125;else &#123;</span><br><span class="line">    &#x2F;&#x2F;用户既没有登录也没有零时购物车</span><br><span class="line">    String replace &#x3D; UUID.randomUUID().toString().replace(&quot;-&quot;, &quot;&quot;);</span><br><span class="line">    userCartKey.setLogin(false);</span><br><span class="line">    userCartKey.setFinalCartKey(CartConstant.TEMP_CART_KEY_PREFIX+replace);</span><br><span class="line">    userCartKey.setTempCartKey(replace);</span><br><span class="line"></span><br><span class="line">    return userCartKey;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>购物车postman测试：<br><img src="https://img-blog.csdnimg.cn/20201203162333555.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201203162342941.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201203162351248.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201203162359503.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201203162408441.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201203162418336.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201203162426234.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201203162436585.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>直接写类似于双写，写map其实是在写缓存。</p>
+<p>回写，把map写完后，开个异步任务，写缓存。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;自动续期 ，防止购物车撑爆</span><br><span class="line">&#x2F;&#x2F;redisTemplate.expire(finalCartKey,30L, TimeUnit.DAYS);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201203162607217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20201203162616532.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201203162624645.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201203162632316.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>HashSet改成LinkedHashSet,也是有序的了，添加物品时有序，如上图的1,2,3,4各行按操作顺序排列。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;删除购物车先维护购物车状态，再删json。若反，删除了json也没有了，再改json数据有问题</span><br><span class="line">@Override</span><br><span class="line">public CartResponse delCartItem(Long skuId, String cartKey, String accessToken) &#123;</span><br><span class="line"></span><br><span class="line">    UserCartKey userCartKey &#x3D; memberComponent.getCartKey(accessToken, cartKey);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    String finalCartKey &#x3D; userCartKey.getFinalCartKey();</span><br><span class="line">    &#x2F;&#x2F;维护购物项的checked状态</span><br><span class="line">    checkItem(Arrays.asList(skuId),false,finalCartKey);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;获取购物车删除购物项</span><br><span class="line">    RMap&lt;String, String&gt; map &#x3D; redissonClient.getMap(finalCartKey);</span><br><span class="line">    map.remove(skuId.toString());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;整个购物车再返回出去</span><br><span class="line">    CartResponse cartResponse &#x3D; listCart(cartKey, accessToken);</span><br><span class="line">    return cartResponse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>1）、购物车数据保存在redis中，使用分布式集合；【redisson.getMap】</p>
+<p>2）、用户对于购物车的所有操作，都需要传入cart-key，如果用户登录了，还需要传入token</p>
+<p>购物车需要提供的所有方法；</p>
+<p>1）、添加到购物车</p>
+<p>2）、修改购物项</p>
+<p>3）、删除购物项</p>
+<p>4）、选中/选不中购物项</p>
+<p>5）、返回整个购物车</p>
+<p>6）、点击去结算-获取购物车中需要结算的数据</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8819%EF%BC%89%E8%B4%AD%E7%89%A9%E8%BD%A6/" data-id="ckib1p4c2000840u18fbz0m0z" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8820%EF%BC%89%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          学习笔记（20）分布式事务
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8818%EF%BC%89%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">学习笔记（18）单点登录</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8822%EF%BC%89%E8%AE%A2%E5%8D%95%E6%9C%8D%E5%8A%A1/">学习笔记（22）订单服务</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8821%EF%BC%89%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">学习笔记（21）消息队列</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8820%EF%BC%89%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">学习笔记（20）分布式事务</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8819%EF%BC%89%E8%B4%AD%E7%89%A9%E8%BD%A6/">学习笔记（19）购物车&#34;</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8818%EF%BC%89%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/">学习笔记（18）单点登录</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
