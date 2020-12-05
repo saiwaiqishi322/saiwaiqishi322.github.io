@@ -1,37 +1,254 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
 
+  
+  <title>学习笔记（14）缓存 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="缓存模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习笔记（14）缓存">
+<meta property="og:url" content="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8814%EF%BC%89%E7%BC%93%E5%AD%98/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缓存模式">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-05T01:48:37.000Z">
+<meta property="article:modified_time" content="2020-12-05T02:04:27.196Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<meta name="generator" content="Hexo 5.2.0"></head>
 
-{% block page_class %}page-post-detail{% endblock %}
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-学习笔记（14）缓存" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8814%EF%BC%89%E7%BC%93%E5%AD%98/" class="article-date">
+  <time datetime="2020-12-05T01:48:37.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      学习笔记（14）缓存
+    </h1>
+  
 
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>缓存模式</p>
+<a id="more"></a>
 
-{% block content %}
+<p>问题：</p>
+<p>查询频率高，数据变化率是不是太快了，我们进缓存，缓存与数据库不同步。因此，存在一个悖论，到底是变化频率高还是变化频率低的进缓存。</p>
+<p>我们读取数据的时候：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">if(readLock)&#123;</span><br><span class="line"></span><br><span class="line">	Data data &#x3D; readFromCache();</span><br><span class="line"></span><br><span class="line">	if(data &#x3D;&#x3D; null)&#123;</span><br><span class="line"></span><br><span class="line">		data &#x3D; readFromDb();</span><br><span class="line"></span><br><span class="line">        setToCache(data);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+<p>写数据的时候</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">if(writeLock)&#123;</span><br><span class="line"></span><br><span class="line">	Data data &#x3D; xxxxx;</span><br><span class="line"></span><br><span class="line">	updateDataToDb(data);</span><br><span class="line"></span><br><span class="line">	setTocache(data);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+<p>双写（数据库写，缓存写都成功才算成功，两个方法写到一个service里，加上事务）保证一致性；</p>
+<p>细节：</p>
+<p>1） 最终一致性：</p>
+<p>下单，查看价时要完全看最新价格，我们读锁。商品详情页看价格，直接去缓存中读取，不加读锁。</p>
+<p>双写+读写锁保持一致性，还有失效模式；</p>
+<p>缓存使用模式分为两大类：Cache-Aside和Cache As SoR</p>
+<p>专业名词：</p>
+<p>SoR（system-of-record）：记录系统，或者可以叫数据源，实际存储原始数据的系统</p>
+<p>Cache：缓存，是SoR的快照数据，Cache的访问速度比SoR要快，放入Cache的目的是提升系统速度，减少回源到SoR的次数</p>
+<p>回源：回到数据源头检索数据，Cache没有命中需要回到SoR读取数据，这叫做回源</p>
+<p>缓存命中：缓存命中率越高：这个数据在缓存中有，这个数据越被高频率检索</p>
+<h2 id="Cache-Aside"><a href="#Cache-Aside" class="headerlink" title="Cache-Aside"></a>Cache-Aside</h2><p>并发更新问题：100万请求进来改数据库，18号最后CPU轮到改了数据库为19，但是改缓存时确实第一个轮到，这样数据库的记录为18号，但是缓存的记录不是18号。</p>
+<p>解决：1）写加写锁</p>
+<p>2）canal伪装成mysql的从库，从数据库读取binlog日志，用该日志改缓存</p>
+<p>3）读服务，可以考虑一致性哈希，相同的操作负载均衡到同一个实例，从而减少并发几率。缓存让同一个读写方法都去同一个缓存，减少并发几率。</p>
+<h2 id="Cache-As-SoR"><a href="#Cache-As-SoR" class="headerlink" title="Cache As SoR"></a>Cache As SoR</h2><p>可使用AOP实现：读之前先读缓存，写之后再写缓存，抽取出来</p>
+<p>即把Cache当做SoR，所有操作都是对Cache进行，然后Cache委托SoR进行数据的真实读写。即业务代码只看到Cache的操作，看不到关于SoR的代码；三种实现模式：read-through、write-through、write-behind<br>缓存框架： 配置好哪些类的数据对应哪个数据库的哪张表.</p>
+<p>| read-through</p>
+<p>业务代码首先调用Cache，Cache不命中，由Cache回源到SoR（类似回调的方式或者Cache配置的方式），而不是业务代码。【Guava、Ehcache均支持这种模式】</p>
+<p>优点：业务代码整洁</p>
+<p>缺点：屏蔽了底层数据库的操作，定制性不强</p>
+<p>l write-through</p>
+<p>称为穿透写模式/直写模式。业务代码调用Cache写数据，然后由Cache负责写缓存和写SoR，而不是业务代码。</p>
+<p>l write-behind</p>
+<p>也叫write-back；回写模式。不同于write-through的是，write-through是同步写，而write-back是异步写，异步成功后可以实现批量写、合并写、延时写等</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8814%EF%BC%89%E7%BC%93%E5%AD%98/" data-id="ckib3f57e0005ggu1889o835r" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8815%EF%BC%89%E5%95%86%E5%93%81%E8%AF%A6%E6%83%85/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          学习笔记（15）商品详情
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8813%EF%BC%89%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">学习笔记（13）分布式锁</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li></ul>
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8822%EF%BC%89%E8%AE%A2%E5%8D%95%E6%9C%8D%E5%8A%A1/">学习笔记（22）订单服务</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8821%EF%BC%89%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">学习笔记（21）消息队列</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8820%EF%BC%89%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">学习笔记（20）分布式事务</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8819%EF%BC%89%E8%B4%AD%E7%89%A9%E8%BD%A6/">学习笔记（19）购物车&#34;</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8818%EF%BC%89%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/">学习笔记（18）单点登录</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

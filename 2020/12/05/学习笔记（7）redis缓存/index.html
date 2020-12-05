@@ -1,37 +1,264 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
 
+  
+  <title>学习笔记（7）redis缓存 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="缓存概念及其实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习笔记（7）redis缓存">
+<meta property="og:url" content="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%887%EF%BC%89redis%E7%BC%93%E5%AD%98/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缓存概念及其实现">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/6a708009be7b9d936b83db71fbb64bdc.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/7aaa510ead3e9bda24137383e40a039d.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/7973e3ed44975ce4c47643948289c4d5.png">
+<meta property="article:published_time" content="2020-12-05T01:43:22.000Z">
+<meta property="article:modified_time" content="2020-12-05T02:00:01.283Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/img_convert/6a708009be7b9d936b83db71fbb64bdc.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<meta name="generator" content="Hexo 5.2.0"></head>
 
-{% block page_class %}page-post-detail{% endblock %}
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-学习笔记（7）redis缓存" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%887%EF%BC%89redis%E7%BC%93%E5%AD%98/" class="article-date">
+  <time datetime="2020-12-05T01:43:22.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      学习笔记（7）redis缓存
+    </h1>
+  
 
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>缓存概念及其实现</p>
+<a id="more"></a>
 
-{% block content %}
+<h2 id="缓存设计"><a href="#缓存设计" class="headerlink" title="缓存设计"></a>缓存设计</h2><p>限流的理念是“多层限流、尽早限流”，缓存也是如此。缓存是利用“数据冗余”来阻挡海量请求的冲击，即缓存实际是同一份数据的不同形式拷贝。例如，数据库缓存Redis实际就是以key-value结构，来存储数据库中二维表结构的数据。Redis中的数据，实际就是数据库的一份冗余。</p>
+<p>在设计缓存时，需要明确一点：对于数据的访问，“读的次数”远远大于“写的次数”。</p>
+<h3 id="缓存动态请求"><a href="#缓存动态请求" class="headerlink" title="缓存动态请求"></a>缓存动态请求</h3><p>在秒杀活动期间，大量的用户会访问相同的商品。因此可以在秒杀开始前，提前在后台服务中将参与秒杀的商品缓存到内存中，从而减少大量的请求流入数据库中，如图所示。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/6a708009be7b9d936b83db71fbb64bdc.png" alt="图片描述"><br>在秒杀期间，也可以动态缓存频繁使用的各种数据。缓存几乎是所有并发系统的标配之一。</p>
+<p>在缓存动态请求时，还需要考虑缓存击穿、缓存雪崩和缓存穿透等问题。</p>
+<ul>
+<li>缓存击穿：如果某一个热点数据的缓存过期了，那么当大量用户同时访问这个热点数据时，就会导致数据库在缓存过期的瞬间压力突然增大；</li>
+<li>缓存雪崩：如果大量数据的缓存同时失效（可能是给大量缓存设置了相同的过期时间，也可能是缓存服务器出现故障等），那么全部的后台请求将直接奔向数据库，从而导致数据库压力过大；</li>
+<li>缓存穿透：一般而言，我们会将那些频繁查询的数据放入缓存，并不会缓存毫无意义的数据。但这也给一些不怀好意的人带来了可乘之机：如果有人恶意大量查询一些不存在的商品，那么这些查询请求就会绕过缓存而直达数据库，因此也会给数据库带来很大压力。</li>
+</ul>
+<p>缓存击穿、缓存雪崩和缓存穿透都是由于某种情况下的“缓存失效”所导致的。三者也都有各自的解决方案，举例如下：</p>
+<ul>
+<li>避免缓存击穿：通过一个线程实时监控热点数据的过期时间，如果发现某个缓存快要过期了，就开启一个异步线程去更新缓存，从而重置过期时间。或者也可以简单一点：在秒杀开始前，手工的设置热点数据在秒杀期间不会过期。；</li>
+<li>避免缓存雪崩：搭建缓存集群（如 Redis 集群），并合理的分配缓存的过期时间；</li>
+<li>避免缓存穿透：对于不存在的商品，也将其以value=”“的形式进行缓存（例如， key =“不存在的商品”, value =””）。这样一来，当以后再次查询“不存在的商品”时，也能迅速的从缓存中查到结果(结果就是””)。此外，为了防止大量无效数据长时间占用缓存容量，可以将这些无意义缓存的过期时间设置的短一些。</li>
+</ul>
+<h3 id="多级缓存"><a href="#多级缓存" class="headerlink" title="多级缓存"></a>多级缓存</h3><p>“限流”可以使用 nginx ，也可以使用 lvs + nginx 等多种组合，缓存也可以有多级。</p>
+<p>对于后台服务，可以有多级缓存。例如，可以先在本地使用 ConcurrentHashMap 、 GuavaCache 、 tomcat 缓存等作为一级缓存，然后搭建 Redis 集群作为远程的二级缓存。如果必要，还可以再在进程内增加一层缓存。</p>
+<p>显然，缓存的级数越多，抵达数据库的请求数就越少，整个系统的压力也会随之减少。但利弊总是同时存在，缓存会造成数据的一致性问题，缓存的级数越多，一致性问题就会越严重；并且多级缓存自身也会对系统造成一定的压力，例如本地缓存需要通过网络调用远程缓存，因此既会增大网络带宽，也会增加整个系统内部的调用次数。对于秒杀抢购来说，一种推荐的缓存结构是“客户端本地缓存（如浏览器缓存） + nginx（存储到 OSS ）+ CDN + 本地缓存 + redis 远程缓存”，如图所示：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/7aaa510ead3e9bda24137383e40a039d.png" alt="图片描述"><br>对于数据库缓存来说，既然缓存的读写速度要远大于数据库的速度，并且很多缓存自身也支持持久化功能，那么能否在秒杀活动期间仅仅使用数据库缓存，而不用数据库本身。当秒杀结束后再将缓存中的数据同步到数据库中，从根本上解决秒杀期间数据库读写速度慢的问题？</p>
+<p>缓存组件的设计目标是“快”，因此在设计时为了“快”而放弃了一些其它功能。例如最常用的数据库缓存 Redis 就不支持事务回滚，如果遇到了需要进行回滚的业务，那么 Redis 就无法支持了。当然，也可以通过日志处理等手段间接实现回滚功能，但这无疑又增大了系统的开发成本和性能损耗（日志的读写操作会损耗性能）。因此，架构设计时经常说的一句话“根据具体业务、具体分析，没有统一的结论”。</p>
+<h3 id="缓冲区"><a href="#缓冲区" class="headerlink" title="缓冲区"></a>缓冲区</h3><p>与缓存比较相似的一个概念是“缓冲区”。缓存一般是 Redis 等中间件，是数据库等内容的一部分拷贝，用于缓解数据库等目标服务的压力，可以理解为一个无序的容器，没有 FIFO 等特性；而缓冲区一般是内存中的一块区域（如数组），用于解决生产端和消费端速度不一致的问题，遵循着 FIFO 等规则。</p>
+<p>缓冲区几乎存在于所有的高并发技术之中，常见的缓冲区有数组和环形缓冲区两种形式，此外环形缓冲区实质也是一个首尾相连的数组，如图所示：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/7973e3ed44975ce4c47643948289c4d5.png" alt="图片描述"><br>知名的分布式计算框架 MapReduce 、单线程每秒吞吐量可达六百万以上高并发框架 disruptor 以及去哪儿网开源的消息队列 QMQ 等，都广泛使用了环形缓冲区。而另一些并发框架（如 netty ），以及 nio 等技术则使用了普通的数组作为缓冲区。</p>
+<p>在设计秒杀系统时，如果遇到后台中多个服务之间的处理速度不一致时，就可以考虑使用缓冲区进行协调。例如，在秒杀系统中，“下订单”的速度要明显快于“处理订单”的速度，因此就可以使用缓冲区平衡二者的速度：生产者（下订单服务）快速的将数据存入缓冲区中，与此同时，消费者（处理订单服务）根据自身的速度从缓冲区中获取数据。读到这里，大家应该能够发现之前介绍的消息队列本质也属于缓冲区的一种。</p>
+<h3 id="淘汰缓存"><a href="#淘汰缓存" class="headerlink" title="淘汰缓存"></a>淘汰缓存</h3><p>在秒杀等高并发系统中，缓存的功能是必不可少的。但是由于内存容量的限制，当缓存达到一定规模时，就有必要通过一些策略及时淘汰部分缓存，防止内存溢出等异常情况。常见的淘汰策略可以是基于缓存数量或缓存容量，并配合 LRU 等算法使用。但在 Java 中，还可以使用本节所讲的引用来实现缓存的淘汰策略。</p>
+<p>缓存的使用无外乎 get 和 set，在一般情况下，我们可以把要缓存的对象 set 到 HashMap 等容器中，然后在使用时直接从容器中 get 即可。但是如果要缓存的对象本身很大，那么同时将多个大对象进行缓存就会给内存带来巨大挑战。使用软引用解决这一问题，因为软引用会在内存不足时被 GC 及时回收，具体如下代码所示。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BigValue</span> </span>&#123;</span><br><span class="line">   ...</span><br><span class="line">   <span class="comment">//模拟大容量对象</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReferenceCache</span> </span>&#123;</span><br><span class="line">    Map&lt;String, SoftReference&lt;BigValue&gt;&gt; caches = <span class="keyword">new</span> HashMap();</span><br><span class="line">    <span class="comment">//根据id存储缓存对象（缓存对象被装饰在了软引用中）</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setCache</span><span class="params">(String id, BigValue bigValue)</span> </span>&#123;</span><br><span class="line">        caches.put(id, <span class="keyword">new</span> SoftReference&lt;BigValue&gt;(bigValue));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//根据id获取缓存对象</span></span><br><span class="line">    <span class="function">BigValue <span class="title">getCache</span><span class="params">(String id)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//根据id，获取缓存对象的软引用</span></span><br><span class="line">        SoftReference&lt;BigValue&gt; softRef = caches.get(id);</span><br><span class="line">        <span class="keyword">return</span> softRef == <span class="keyword">null</span> ? <span class="keyword">null</span> : softRef.get();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>缓存与“限流”虽是不同的技术，但二者的使用思路基本一致：都是以请求的“时间线”为线索。在分析多级缓存时，应该分析请求路径中的每个阶段能否加入缓存、如何加入缓存、加入缓存带来的利弊该如何权衡。</p>
+<p>在设计多层限流、多级缓存时，切忌进行盲目的技术堆积，而要清晰认识每一级缓存的作用。对于动态请求来说，“ Redis 远程缓存”可以作为数据库的缓存，而 GuavaCache 等“服务器本地缓存”主要用于保护远程缓存（例如可以减少 Redis 失效造成的缓存雪崩等问题）。</p>
+<h2 id="缓存具体实现"><a href="#缓存具体实现" class="headerlink" title="缓存具体实现"></a>缓存具体实现</h2><p><strong>为了系统性能的提升</strong>，我们一般都会将数据放入缓存中，加速访问。而db承担<strong>数据落盘</strong>工作。</p>
+<p>高并发系统，缓存是必备。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">缓存的使用场景：</span><br><span class="line">一些固定的数据，不太变化的数据，高频访问的数据（基本不变），变化频率低的都可以入缓存，加速系统的访问。 </span><br><span class="line">缓存的目的：提高系统查询效率，提供性能</span><br><span class="line">1）、将菜单缓存起来，以后查询直接去缓存中拿即可；</span><br><span class="line">设计模式：模板模式：</span><br><span class="line"> 操作xxx都有对应的xxxTemplate；</span><br><span class="line"> JdbcTemplate、RestTemplate、RedisTemplate、MongoTemplate</span><br><span class="line"></span><br><span class="line"> RedisTemplate&lt;Object, Object&gt;；  k-v；</span><br><span class="line"> v有五种类型、String、V</span><br><span class="line"> StringRedisTemplate: k-v都是String的。</span><br><span class="line"></span><br><span class="line"> 引入一个场景，猜这个场景的xxxAutoConfiguration，帮我们注入能操作这个技术的组件，这个场景的配置信息都在xxxProperties中说明了(prefix &#x3D; spring.redis&quot;)使用哪种前缀配置</span><br><span class="line"></span><br><span class="line"> 2)、整合Redis两大步</span><br><span class="line">   1）、导入starter-data-redis</span><br><span class="line">   2）、application.properties配置与 spring.redis相关的</span><br><span class="line">   注意：</span><br><span class="line">      RedisTemplate；存数据默认使用jdk的方式序列化存过去。</span><br><span class="line">      我们推荐都应该存成json；</span><br><span class="line">      做法：</span><br><span class="line">          将默认的序列化器改为json的</span><br></pre></td></tr></table></figure>
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+<p>spring-boot把每个功能都抽取成场景启动器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-data-redis&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>会有RedisAutoConfiguration,往容器中注入template</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@ConditionalOnClass(&#123;RedisOperations.class&#125;)</span><br><span class="line">@EnableConfigurationProperties(&#123;RedisProperties.class&#125;)</span><br><span class="line">@Import(&#123;LettuceConnectionConfiguration.class, JedisConnectionConfiguration.class&#125;)</span><br><span class="line">public class RedisAutoConfiguration &#123;</span><br><span class="line">    public RedisAutoConfiguration() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    @ConditionalOnMissingBean(</span><br><span class="line">        name &#x3D; &#123;&quot;redisTemplate&quot;&#125;</span><br><span class="line">    )</span><br><span class="line">    public RedisTemplate&lt;Object, Object&gt; redisTemplate(RedisConnectionFactory redisConnectionFactory) throws UnknownHostException &#123;</span><br><span class="line">        RedisTemplate&lt;Object, Object&gt; template &#x3D; new RedisTemplate();</span><br><span class="line">        template.setConnectionFactory(redisConnectionFactory);</span><br><span class="line">        return template;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    @ConditionalOnMissingBean</span><br><span class="line">    public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory) throws UnknownHostException &#123;</span><br><span class="line">        StringRedisTemplate template &#x3D; new StringRedisTemplate();</span><br><span class="line">        template.setConnectionFactory(redisConnectionFactory);</span><br><span class="line">        return template;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;**</span><br><span class="line"> * 只需要自己创建出自己满意的序列化器放入容器中即可</span><br><span class="line"> *&#x2F;</span><br><span class="line"> &#x2F;&#x2F;默认的RedisTemplate；存数据默认使用jdk的方式序列化存过去。</span><br><span class="line">      我们推荐都应该存成json；（方便阅读）</span><br><span class="line">      做法：</span><br><span class="line">         将默认的序列化器改为json的</span><br><span class="line">         &#x2F;&#x2F;@Bean标注的所有方法都会在IOC容器自己获取</span><br><span class="line">@Configuration</span><br><span class="line">public class PmsRedisConfig &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * jedis</span><br><span class="line">     * @param redisConnectionFactory</span><br><span class="line">     * @return</span><br><span class="line">     * @throws UnknownHostException</span><br><span class="line">     *&#x2F;</span><br><span class="line">    @Bean(&quot;redisTemplate&quot;)</span><br><span class="line">    public RedisTemplate&lt;Object, Object&gt; redisTemplate(</span><br><span class="line">            RedisConnectionFactory redisConnectionFactory) throws UnknownHostException &#123;</span><br><span class="line">        RedisTemplate&lt;Object, Object&gt; template &#x3D; new RedisTemplate&lt;&gt;();</span><br><span class="line">        template.setConnectionFactory(redisConnectionFactory);</span><br><span class="line">        &#x2F;&#x2F;修改默认的序列化方式</span><br><span class="line">        template.setDefaultSerializer(new GenericJackson2JsonRedisSerializer());</span><br><span class="line">        return template;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%887%EF%BC%89redis%E7%BC%93%E5%AD%98/" data-id="ckib3f57o000jggu16oyq8z02" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%888%EF%BC%89%E6%A0%B8%E5%BF%83%E6%8E%A5%E5%8F%A3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          学习笔记（8）核心接口
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%886%EF%BC%89%E6%95%B0%E6%8D%AE%E8%A1%A8%E8%AE%BE%E8%AE%A1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">学习笔记（6）数据表设计</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li></ul>
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8822%EF%BC%89%E8%AE%A2%E5%8D%95%E6%9C%8D%E5%8A%A1/">学习笔记（22）订单服务</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8821%EF%BC%89%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">学习笔记（21）消息队列</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8820%EF%BC%89%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">学习笔记（20）分布式事务</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8819%EF%BC%89%E8%B4%AD%E7%89%A9%E8%BD%A6/">学习笔记（19）购物车&#34;</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8818%EF%BC%89%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/">学习笔记（18）单点登录</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

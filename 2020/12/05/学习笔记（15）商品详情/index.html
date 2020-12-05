@@ -1,37 +1,258 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
 
+  
+  <title>学习笔记（15）商品详情 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="商品详情查询">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习笔记（15）商品详情">
+<meta property="og:url" content="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8815%EF%BC%89%E5%95%86%E5%93%81%E8%AF%A6%E6%83%85/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="商品详情查询">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201203155805895.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201203155835867.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201203155919589.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201203155948761.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201203160029167.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2020-12-05T01:49:55.000Z">
+<meta property="article:modified_time" content="2020-12-05T02:05:44.949Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201203155805895.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<meta name="generator" content="Hexo 5.2.0"></head>
 
-{% block page_class %}page-post-detail{% endblock %}
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-学习笔记（15）商品详情" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8815%EF%BC%89%E5%95%86%E5%93%81%E8%AF%A6%E6%83%85/" class="article-date">
+  <time datetime="2020-12-05T01:49:55.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      学习笔记（15）商品详情
+    </h1>
+  
 
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>商品详情查询</p>
+<a id="more"></a>
 
-{% block content %}
+<p>商品详情是一个高并发访问的功能</p>
+<p>我们需要考虑<strong>缓存</strong>、考虑性能、考虑机器压力。</p>
+<p>京东商城：一个请求过去，所有数据都来了。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201203155805895.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>1）、服务拆分查询</p>
+<p> 查询商品基础信息</p>
+<p> 查询sku组合信息</p>
+<p> 点击sku组合查询商品基础信息+sku信息（特别是库存）</p>
+<p> 商品的所有属性信息</p>
+<p> 大数据不可以联表（数据太多）。</p>
+<p> 1）、禁用联表。</p>
+<p> 2）、MySQL表有极限。大数据表分表；</p>
+<p>2）、做好容错。</p>
+<p> 如果sku组合查询库存以及售价出现问题，返回兜底数据。</p>
+<p>分表：<br><img src="https://img-blog.csdnimg.cn/20201203155835867.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>数据量更大时，还会采用分库：</p>
+<p><img src="https://img-blog.csdnimg.cn/20201203155919589.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>sahrding-jdbd 能分表，用其存数据，但是不能用其查数据库，数据异构的统一解决方案 es</p>
+<p>如何知道一号商品有哪些属性且对应的值是哪些？</p>
+<p>用es检索一号商品，再在es的属性索引下检索一号商品有哪些属性，es还有值索引，再去检索es对应的哪些值。es只需要做好集群，所有数据进入es。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201203155948761.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>三写：</p>
+<p>1）、给数据库存东西</p>
+<p>1）、给缓存一份（用id查的快）</p>
+<p>2）、给es一份（用其他字段查的快）</p>
+<p>复杂查询，es先查出商品id，再直接从缓存中拿。</p>
+<p>商品详情页请求：<a target="_blank" rel="noopener" href="http://localhost:8081/detail/28">http://localhost:8081/detail/28</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">  public EsProduct productAllInfo(Long id) &#123;</span><br><span class="line">      EsProduct esProduct &#x3D; null;</span><br><span class="line">      &#x2F;&#x2F;按照id查出商品</span><br><span class="line">      SearchSourceBuilder builder &#x3D; new SearchSourceBuilder();</span><br><span class="line">      builder.query(QueryBuilders.termQuery(&quot;id&quot;,id));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      Search build &#x3D; new Search.Builder(builder.toString())</span><br><span class="line">              .addIndex(EsConstant.PRODUCT_ES_INDEX)</span><br><span class="line">              .addType(EsConstant.PRODUCT_INFO_ES_TYPE)</span><br><span class="line">              .build();</span><br><span class="line">      try &#123;</span><br><span class="line">          SearchResult execute &#x3D; jestClient.execute(build);</span><br><span class="line"></span><br><span class="line">          List&lt;SearchResult.Hit&lt;EsProduct, Void&gt;&gt; hits &#x3D; execute.getHits(EsProduct.class);</span><br><span class="line">          esProduct &#x3D; hits.get(0).source;</span><br><span class="line">      &#125; catch (IOException e) &#123;</span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      return esProduct;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @Override</span><br><span class="line">  public EsProduct produSkuInfo(Long id) &#123;</span><br><span class="line">      EsProduct esProduct &#x3D; null;</span><br><span class="line">      &#x2F;&#x2F;按照id查出商品</span><br><span class="line">      SearchSourceBuilder builder &#x3D; new SearchSourceBuilder();</span><br><span class="line">      builder.query(QueryBuilders.nestedQuery(&quot;skuProductInfos&quot;,QueryBuilders.termQuery(&quot;skuProductInfos.id&quot;,id), ScoreMode.None));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      Search build &#x3D; new Search.Builder(builder.toString())</span><br><span class="line">              .addIndex(EsConstant.PRODUCT_ES_INDEX)</span><br><span class="line">              .addType(EsConstant.PRODUCT_INFO_ES_TYPE)</span><br><span class="line">              .build();</span><br><span class="line">      try &#123;</span><br><span class="line">          SearchResult execute &#x3D; jestClient.execute(build);</span><br><span class="line"></span><br><span class="line">          List&lt;SearchResult.Hit&lt;EsProduct, Void&gt;&gt; hits &#x3D; execute.getHits(EsProduct.class);</span><br><span class="line">          esProduct &#x3D; hits.get(0).source;</span><br><span class="line">      &#125; catch (IOException e) &#123;</span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line">      return esProduct;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+<p>数据成功检索，只不过前端没有解析</p>
+<p><img src="https://img-blog.csdnimg.cn/20201203160029167.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEwNDM5Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;8s  2.5s； 需要速度快。 开启异步化 最多1s，取决最长的服务调用。</span><br><span class="line">&#x2F;&#x2F;高并发系统的优化</span><br><span class="line">&#x2F;&#x2F;1、加缓存</span><br><span class="line">&#x2F;&#x2F;2、开异步</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8815%EF%BC%89%E5%95%86%E5%93%81%E8%AF%A6%E6%83%85/" data-id="ckib3f57f0006ggu167rr4r4r" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8816%EF%BC%89%E5%A4%9A%E7%BA%BF%E7%A8%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          学习笔记（16）多线程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8814%EF%BC%89%E7%BC%93%E5%AD%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">学习笔记（14）缓存</div>
+    </a>
+  
+</nav>
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li></ul>
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8822%EF%BC%89%E8%AE%A2%E5%8D%95%E6%9C%8D%E5%8A%A1/">学习笔记（22）订单服务</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8821%EF%BC%89%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">学习笔记（21）消息队列</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8820%EF%BC%89%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">学习笔记（20）分布式事务</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8819%EF%BC%89%E8%B4%AD%E7%89%A9%E8%BD%A6/">学习笔记（19）购物车&#34;</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8818%EF%BC%89%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/">学习笔记（18）单点登录</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

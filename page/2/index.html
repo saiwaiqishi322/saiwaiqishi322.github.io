@@ -1,23 +1,578 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
 
-{% block title %}{{ config.title }}{% if theme.index_with_subtitle and config.subtitle %} - {{config.subtitle }}{% endif %}{% endblock %}
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/page/2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
-{% block page_class %}
-  {% if is_home() %}page-home{% endif -%}
-{% endblock %}
+<meta name="generator" content="Hexo 5.2.0"></head>
 
-{% block content %}
-  <section id="posts" class="posts-expand">
-    {% for post in page.posts %}
-      {{ post_template.render(post, true) }}
-    {% endfor %}
-  </section>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-学习笔记（11）商品上架与ES检索" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8811%EF%BC%89%E5%95%86%E5%93%81%E4%B8%8A%E6%9E%B6%E4%B8%8EES%E6%A3%80%E7%B4%A2/" class="article-date">
+  <time datetime="2020-12-05T01:46:27.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8811%EF%BC%89%E5%95%86%E5%93%81%E4%B8%8A%E6%9E%B6%E4%B8%8EES%E6%A3%80%E7%B4%A2/">学习笔记（11）商品上架与ES检索</a>
+    </h1>
+  
 
-  {% include '_partials/pagination.swig' %}
-{% endblock %}
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>项目的商品上架及其检索</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8811%EF%BC%89%E5%95%86%E5%93%81%E4%B8%8A%E6%9E%B6%E4%B8%8EES%E6%A3%80%E7%B4%A2/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8811%EF%BC%89%E5%95%86%E5%93%81%E4%B8%8A%E6%9E%B6%E4%B8%8EES%E6%A3%80%E7%B4%A2/" data-id="ckib3f57c0003ggu16zdo3uy5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
 
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
+
+  
+    <article id="post-学习笔记（10）ES检索" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8810%EF%BC%89ES%E6%A3%80%E7%B4%A2/" class="article-date">
+  <time datetime="2020-12-05T01:45:31.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8810%EF%BC%89ES%E6%A3%80%E7%B4%A2/">学习笔记（10）ES检索</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>es的简易使用</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8810%EF%BC%89ES%E6%A3%80%E7%B4%A2/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8810%EF%BC%89ES%E6%A3%80%E7%B4%A2/" data-id="ckib3f57b0002ggu11rxjgh0q" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-学习笔记（9）事务" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%889%EF%BC%89%E4%BA%8B%E5%8A%A1/" class="article-date">
+  <time datetime="2020-12-05T01:44:43.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%889%EF%BC%89%E4%BA%8B%E5%8A%A1/">学习笔记（9）事务</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>事务解决方案</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%889%EF%BC%89%E4%BA%8B%E5%8A%A1/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%889%EF%BC%89%E4%BA%8B%E5%8A%A1/" data-id="ckib3f57q000mggu1ccnu27u5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-学习笔记（8）核心接口" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%888%EF%BC%89%E6%A0%B8%E5%BF%83%E6%8E%A5%E5%8F%A3/" class="article-date">
+  <time datetime="2020-12-05T01:44:01.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%888%EF%BC%89%E6%A0%B8%E5%BF%83%E6%8E%A5%E5%8F%A3/">学习笔记（8）核心接口</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>商品分页查询示例</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%888%EF%BC%89%E6%A0%B8%E5%BF%83%E6%8E%A5%E5%8F%A3/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%888%EF%BC%89%E6%A0%B8%E5%BF%83%E6%8E%A5%E5%8F%A3/" data-id="ckib3f57q000lggu12rql9zqa" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-学习笔记（7）redis缓存" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%887%EF%BC%89redis%E7%BC%93%E5%AD%98/" class="article-date">
+  <time datetime="2020-12-05T01:43:22.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%887%EF%BC%89redis%E7%BC%93%E5%AD%98/">学习笔记（7）redis缓存</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>缓存概念及其实现</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%887%EF%BC%89redis%E7%BC%93%E5%AD%98/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%887%EF%BC%89redis%E7%BC%93%E5%AD%98/" data-id="ckib3f57o000jggu16oyq8z02" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-学习笔记（6）数据表设计" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%886%EF%BC%89%E6%95%B0%E6%8D%AE%E8%A1%A8%E8%AE%BE%E8%AE%A1/" class="article-date">
+  <time datetime="2020-12-05T01:42:37.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%886%EF%BC%89%E6%95%B0%E6%8D%AE%E8%A1%A8%E8%AE%BE%E8%AE%A1/">学习笔记（6）数据表设计</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>项目的商品数据模型及其查询</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%886%EF%BC%89%E6%95%B0%E6%8D%AE%E8%A1%A8%E8%AE%BE%E8%AE%A1/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%886%EF%BC%89%E6%95%B0%E6%8D%AE%E8%A1%A8%E8%AE%BE%E8%AE%A1/" data-id="ckib3f57p000kggu14lf50a1v" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-学习笔记（5）品牌查询实现" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%885%EF%BC%89%E5%93%81%E7%89%8C%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0/" class="article-date">
+  <time datetime="2020-12-05T01:41:55.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%885%EF%BC%89%E5%93%81%E7%89%8C%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0/">学习笔记（5）品牌查询实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>项目品牌查询</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%885%EF%BC%89%E5%93%81%E7%89%8C%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%885%EF%BC%89%E5%93%81%E7%89%8C%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0/" data-id="ckib3f57o000iggu10i1ge77u" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-学习笔记（4）商品查询实现" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%884%EF%BC%89%E5%95%86%E5%93%81%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0/" class="article-date">
+  <time datetime="2020-12-05T01:40:27.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%884%EF%BC%89%E5%95%86%E5%93%81%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0/">学习笔记（4）商品查询实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>项目商品查询以及AOP处理</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%884%EF%BC%89%E5%95%86%E5%93%81%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%884%EF%BC%89%E5%95%86%E5%93%81%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0/" data-id="ckib3f57n000gggu1dnytfhnt" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-学习笔记（3）登录实现" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89%E7%99%BB%E5%BD%95%E5%AE%9E%E7%8E%B0/" class="article-date">
+  <time datetime="2020-12-05T01:30:00.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89%E7%99%BB%E5%BD%95%E5%AE%9E%E7%8E%B0/">学习笔记（3）登录实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>项目的登录实现</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89%E7%99%BB%E5%BD%95%E5%AE%9E%E7%8E%B0/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89%E7%99%BB%E5%BD%95%E5%AE%9E%E7%8E%B0/" data-id="ckib3f57n000hggu11by58voq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-学习笔记（2）基本配置以及高性能高可用数据库设计" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%8F%AF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" class="article-date">
+  <time datetime="2020-12-05T00:57:22.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%8F%AF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/">学习笔记（2）基本配置以及高性能高可用数据库设计</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>项目涉及的微服务以及数据库基本结构</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%8F%AF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%8F%AF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" data-id="ckib3f57m000fggu162d6cyrb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8822%EF%BC%89%E8%AE%A2%E5%8D%95%E6%9C%8D%E5%8A%A1/">学习笔记（22）订单服务</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8821%EF%BC%89%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">学习笔记（21）消息队列</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8820%EF%BC%89%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">学习笔记（20）分布式事务</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8819%EF%BC%89%E8%B4%AD%E7%89%A9%E8%BD%A6/">学习笔记（19）购物车&#34;</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8818%EF%BC%89%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/">学习笔记（18）单点登录</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
